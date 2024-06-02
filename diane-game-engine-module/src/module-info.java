@@ -10,7 +10,6 @@ module org.retropipes.diane {
 	requires transitive org.retropipes.diane.direction;
 	requires transitive org.retropipes.diane.fileio;
 	requires transitive org.retropipes.diane.fileio.utility;
-	requires transitive org.retropipes.diane.gameobject;
 	requires transitive org.retropipes.diane.gameshell;
 	requires transitive org.retropipes.diane.gui;
 	requires transitive org.retropipes.diane.gui.picker;
