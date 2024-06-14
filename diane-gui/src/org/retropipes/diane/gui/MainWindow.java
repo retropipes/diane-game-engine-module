@@ -29,6 +29,7 @@ public final class MainWindow {
 	public static void createMainWindow(final int width, final int height) {
 		if (MainWindow.window == null) {
 			MainWindow.window = new MainWindow(width, height);
+			MainContentFactory.setContentSize(width, height);
 			MainWindow.window.frame.setIconImage(CommonDialogs.icon());
 		}
 	}
