@@ -4,12 +4,12 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.point;
 
 public class Point1D {
-	public int x;
+    public int x;
 
-	public Point1D() {
-	}
+    public Point1D() {
+    }
 
-	public Point1D(final int nx) {
-		this.x = nx;
-	}
+    public Point1D(final int nx) {
+	this.x = nx;
+    }
 }

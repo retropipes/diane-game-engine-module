@@ -6,19 +6,19 @@ package org.retropipes.diane.gameshell;
 import javax.swing.JPanel;
 
 public abstract class MenuManagerShell {
-	// Fields
-	protected final JPanel menuContainer;
+    // Fields
+    protected final JPanel menuContainer;
 
-	// Constructors
-	public MenuManagerShell() {
-		this.menuContainer = new JPanel();
-	}
+    // Constructors
+    public MenuManagerShell() {
+	this.menuContainer = new JPanel();
+    }
 
-	public final JPanel getMenuContainer() {
-		return this.menuContainer;
-	}
+    public final JPanel getMenuContainer() {
+	return this.menuContainer;
+    }
 
-	public abstract void populateMenus();
+    public abstract void populateMenus();
 
-	public abstract void updateMenuItemState(final boolean loaded, final boolean dirty);
+    public abstract void updateMenuItemState(final boolean loaded, final boolean dirty);
 }

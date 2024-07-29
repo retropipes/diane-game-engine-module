@@ -4,17 +4,17 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.edge;
 
 public class EdgePosition {
-	// Constants
-	public static final EdgePosition MIDDLE = new EdgePosition(0.5);
-	// Fields
-	private final double offset;
+    // Constants
+    public static final EdgePosition MIDDLE = new EdgePosition(0.5);
+    // Fields
+    private final double offset;
 
-	// Constructor
-	private EdgePosition(final double newOffset) {
-		this.offset = newOffset;
-	}
+    // Constructor
+    private EdgePosition(final double newOffset) {
+	this.offset = newOffset;
+    }
 
-	public double getOffset() {
-		return this.offset;
-	}
+    public double getOffset() {
+	return this.offset;
+    }
 }

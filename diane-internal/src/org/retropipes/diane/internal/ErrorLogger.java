@@ -4,22 +4,22 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.internal;
 
 public final class ErrorLogger {
-	// Fields
-	private final String name;
+    // Fields
+    private final String name;
 
-	// Constructor
-	public ErrorLogger(final String programName) {
-		this.name = programName;
-	}
+    // Constructor
+    public ErrorLogger(final String programName) {
+	this.name = programName;
+    }
 
-	public void logError(final Throwable t) {
-		final var elw = new ErrorLogWriter(t, this.name);
-		elw.writeErrorInfo();
-		System.exit(1);
-	}
+    public void logError(final Throwable t) {
+	final var elw = new ErrorLogWriter(t, this.name);
+	elw.writeErrorInfo();
+	System.exit(1);
+    }
 
-	public void logWarning(final Throwable t) {
-		final var wlw = new WarningLogWriter(t, this.name);
-		wlw.writeLogInfo();
-	}
+    public void logWarning(final Throwable t) {
+	final var wlw = new WarningLogWriter(t, this.name);
+	wlw.writeLogInfo();
+    }
 }

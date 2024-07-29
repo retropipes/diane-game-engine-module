@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.internal;
 
 public enum PrivateOggString {
-	MEDIA_PLAYER_NAME
+    MEDIA_PLAYER_NAME
 }

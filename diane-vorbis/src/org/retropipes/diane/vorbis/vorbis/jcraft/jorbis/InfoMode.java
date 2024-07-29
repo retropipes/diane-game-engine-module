@@ -18,8 +18,8 @@
 package org.retropipes.diane.vorbis.vorbis.jcraft.jorbis;
 
 class InfoMode {
-	int blockflag;
-	int windowtype;
-	int transformtype;
-	int mapping;
+    int blockflag;
+    int windowtype;
+    int transformtype;
+    int mapping;
 }

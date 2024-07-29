@@ -7,6 +7,5 @@ import java.io.Serializable;
  * object identifier.
  */
 public interface ObjectId extends Serializable {
-
-	int ordinal();
+    int ordinal();
 }

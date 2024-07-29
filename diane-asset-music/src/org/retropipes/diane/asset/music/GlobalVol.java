@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.asset.music;
 
 class GlobalVol {
-	public int volume;
+    public int volume;
 }

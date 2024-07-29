@@ -6,24 +6,24 @@ package org.retropipes.diane.fileio;
 import java.io.File;
 
 public interface DataIOWriter extends AutoCloseable {
-	@Override
-	void close() throws DataIOException;
+    @Override
+    void close() throws DataIOException;
 
-	DataMode getDataIOMode();
+    DataMode getDataIOMode();
 
-	File getFile();
+    File getFile();
 
-	void writeBoolean(boolean value) throws DataIOException;
+    void writeBoolean(boolean value) throws DataIOException;
 
-	void writeByte(byte value) throws DataIOException;
+    void writeByte(byte value) throws DataIOException;
 
-	void writeDouble(double value) throws DataIOException;
+    void writeDouble(double value) throws DataIOException;
 
-	void writeInt(int value) throws DataIOException;
+    void writeInt(int value) throws DataIOException;
 
-	void writeLong(long value) throws DataIOException;
+    void writeLong(long value) throws DataIOException;
 
-	void writeString(String value) throws DataIOException;
+    void writeString(String value) throws DataIOException;
 
-	void writeUnsignedByte(int value) throws DataIOException;
+    void writeUnsignedByte(int value) throws DataIOException;
 }

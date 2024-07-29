@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.internal;
 
 public interface DianeErrorHandler extends Thread.UncaughtExceptionHandler {
-	void handleWarning(Throwable t);
+    void handleWarning(Throwable t);
 }

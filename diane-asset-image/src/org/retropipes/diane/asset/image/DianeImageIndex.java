@@ -6,5 +6,5 @@ package org.retropipes.diane.asset.image;
 import org.retropipes.diane.asset.DianeAssetIndex;
 
 public interface DianeImageIndex extends DianeAssetIndex {
-	public static final DianeImageIndex NO_IMAGE = null;
+    public static final DianeImageIndex NO_IMAGE = null;
 }

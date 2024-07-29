@@ -6,7 +6,7 @@ package org.retropipes.diane.asset;
 import java.net.URL;
 
 public interface DianeAssetIndex {
-	String getName();
+    String getName();
 
-	URL getURL();
+    URL getURL();
 }

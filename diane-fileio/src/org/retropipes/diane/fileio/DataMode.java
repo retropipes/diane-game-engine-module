@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.fileio;
 
 public enum DataMode {
-	TEXT, BINARY, GAME_IO, CUSTOM_XML, XML
+    TEXT, BINARY, GAME_IO, CUSTOM_XML, XML
 }

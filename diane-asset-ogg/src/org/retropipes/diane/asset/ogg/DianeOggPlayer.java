@@ -11,50 +11,50 @@ import org.retropipes.diane.internal.PrivateOggString;
 import org.retropipes.diane.internal.PrivateStrings;
 
 public abstract class DianeOggPlayer extends Thread {
-	// Constants
-	private static DianeOggPlayer ACTIVE_MEDIA;
+    // Constants
+    private static DianeOggPlayer ACTIVE_MEDIA;
 
-	// Factories
-	public static DianeOggPlayer loadLoopedFile(final String file) {
-		DianeOggPlayer.stopPlaying();
-		DianeOggPlayer.ACTIVE_MEDIA = new OggLoopFile(file);
-		return DianeOggPlayer.ACTIVE_MEDIA;
+    // Factories
+    public static DianeOggPlayer loadLoopedFile(final String file) {
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggLoopFile(file);
+	return DianeOggPlayer.ACTIVE_MEDIA;
+    }
+
+    public static DianeOggPlayer loadLoopedResource(final URL resource) {
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggLoopResource(resource);
+	return DianeOggPlayer.ACTIVE_MEDIA;
+    }
+
+    public static DianeOggPlayer loadFile(final String file) {
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggFile(file);
+	return DianeOggPlayer.ACTIVE_MEDIA;
+    }
+
+    public static DianeOggPlayer loadResource(final URL resource) {
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggResource(resource);
+	return DianeOggPlayer.ACTIVE_MEDIA;
+    }
+
+    public static void stopPlaying() {
+	if (DianeOggPlayer.ACTIVE_MEDIA != null) {
+	    DianeOggPlayer.ACTIVE_MEDIA.stopPlayer();
 	}
+    }
 
-	public static DianeOggPlayer loadLoopedResource(final URL resource) {
-		DianeOggPlayer.stopPlaying();
-		DianeOggPlayer.ACTIVE_MEDIA = new OggLoopResource(resource);
-		return DianeOggPlayer.ACTIVE_MEDIA;
-	}
+    // Constructor
+    protected DianeOggPlayer() {
+	super(PrivateStrings.ogg(PrivateOggString.MEDIA_PLAYER_NAME));
+    }
 
-	public static DianeOggPlayer loadFile(final String file) {
-		DianeOggPlayer.stopPlaying();
-		DianeOggPlayer.ACTIVE_MEDIA = new OggFile(file);
-		return DianeOggPlayer.ACTIVE_MEDIA;
-	}
+    public abstract boolean isPlaying();
 
-	public static DianeOggPlayer loadResource(final URL resource) {
-		DianeOggPlayer.stopPlaying();
-		DianeOggPlayer.ACTIVE_MEDIA = new OggResource(resource);
-		return DianeOggPlayer.ACTIVE_MEDIA;
-	}
+    public void play() {
+	this.start();
+    }
 
-	public static void stopPlaying() {
-		if (DianeOggPlayer.ACTIVE_MEDIA != null) {
-			DianeOggPlayer.ACTIVE_MEDIA.stopPlayer();
-		}
-	}
-
-	// Constructor
-	protected DianeOggPlayer() {
-		super(PrivateStrings.ogg(PrivateOggString.MEDIA_PLAYER_NAME));
-	}
-
-	public abstract boolean isPlaying();
-
-	public void play() {
-		this.start();
-	}
-
-	protected abstract void stopPlayer();
+    protected abstract void stopPlayer();
 }

@@ -10,32 +10,32 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 public class ResourceStreamReader implements AutoCloseable {
-	// Fields
-	private transient final BufferedReader br;
+    // Fields
+    private transient final BufferedReader br;
 
-	// Constructors
-	public ResourceStreamReader(final InputStream is) {
-		this.br = new BufferedReader(new InputStreamReader(is));
-	}
+    // Constructors
+    public ResourceStreamReader(final InputStream is) {
+	this.br = new BufferedReader(new InputStreamReader(is));
+    }
 
-	public ResourceStreamReader(final InputStream is, final String encoding) throws UnsupportedEncodingException {
-		this.br = new BufferedReader(new InputStreamReader(is, encoding));
-	}
+    public ResourceStreamReader(final InputStream is, final String encoding) throws UnsupportedEncodingException {
+	this.br = new BufferedReader(new InputStreamReader(is, encoding));
+    }
 
-	@Override
-	public void close() throws IOException {
-		this.br.close();
-	}
+    @Override
+    public void close() throws IOException {
+	this.br.close();
+    }
 
-	public int readInt() throws IOException {
-		final var line = this.br.readLine();
-		if (line == null) {
-			throw new IOException("Input line == null!"); //$NON-NLS-1$
-		}
-		return Integer.parseInt(line);
+    public int readInt() throws IOException {
+	final var line = this.br.readLine();
+	if (line == null) {
+	    throw new IOException("Input line == null!"); //$NON-NLS-1$
 	}
+	return Integer.parseInt(line);
+    }
 
-	public String readString() throws IOException {
-		return this.br.readLine();
-	}
+    public String readString() throws IOException {
+	return this.br.readLine();
+    }
 }

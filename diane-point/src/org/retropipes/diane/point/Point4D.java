@@ -4,13 +4,13 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.point;
 
 public class Point4D extends Point3D {
-	public int w;
+    public int w;
 
-	public Point4D() {
-	}
+    public Point4D() {
+    }
 
-	public Point4D(final int nx, final int ny, final int nz, final int nw) {
-		super(nx, ny, nz);
-		this.w = nw;
-	}
+    public Point4D(final int nx, final int ny, final int nz, final int nw) {
+	super(nx, ny, nz);
+	this.w = nw;
+    }
 }

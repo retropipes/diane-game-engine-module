@@ -21,45 +21,45 @@ package org.retropipes.diane.vorbis.util;
  *
  */
 public final class Util {
-	/**
-	 *
-	 * @param v
-	 * @return
-	 */
-	public static int icount(int v) {
-		var ret = 0;
-		while (v != 0) {
-			ret += v & 1;
-			v >>>= 1;
-		}
-		return ret;
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static int icount(int v) {
+	var ret = 0;
+	while (v != 0) {
+	    ret += v & 1;
+	    v >>>= 1;
 	}
+	return ret;
+    }
 
-	/**
-	 *
-	 * @param v
-	 * @return
-	 */
-	public static int ilog(int v) {
-		var ret = 0;
-		while (v != 0) {
-			ret++;
-			v >>>= 1;
-		}
-		return ret;
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static int ilog(int v) {
+	var ret = 0;
+	while (v != 0) {
+	    ret++;
+	    v >>>= 1;
 	}
+	return ret;
+    }
 
-	/**
-	 *
-	 * @param v
-	 * @return
-	 */
-	public static int ilog2(int v) {
-		var ret = 0;
-		while (v > 1) {
-			ret++;
-			v >>>= 1;
-		}
-		return ret;
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static int ilog2(int v) {
+	var ret = 0;
+	while (v > 1) {
+	    ret++;
+	    v >>>= 1;
 	}
+	return ret;
+    }
 }

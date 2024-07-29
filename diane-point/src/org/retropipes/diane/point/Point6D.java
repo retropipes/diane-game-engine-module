@@ -4,13 +4,13 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.point;
 
 public class Point6D extends Point5D {
-	public int u;
+    public int u;
 
-	public Point6D() {
-	}
+    public Point6D() {
+    }
 
-	public Point6D(final int nx, final int ny, final int nz, final int nw, final int nv, final int nu) {
-		super(nx, ny, nz, nw, nv);
-		this.u = nu;
-	}
+    public Point6D(final int nx, final int ny, final int nz, final int nw, final int nv, final int nu) {
+	super(nx, ny, nz, nw, nv);
+	this.u = nu;
+    }
 }

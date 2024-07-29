@@ -6,5 +6,5 @@ package org.retropipes.diane.asset.sound;
 import org.retropipes.diane.asset.DianeAssetIndex;
 
 public interface DianeSoundIndex extends DianeAssetIndex {
-	public static final DianeSoundIndex NO_SOUND = null;
+    public static final DianeSoundIndex NO_SOUND = null;
 }

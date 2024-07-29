@@ -26,23 +26,23 @@ import java.io.ObjectOutput;
  *
  */
 public class SoundException extends Exception implements Externalizable {
-	/**
-	 * Only a constructor with a string argument to force users to give meaningful
-	 * messages.
-	 *
-	 * @param s
-	 */
-	public SoundException(final String s) {
-		super("Vorbis exception " + s);
-	}
+    /**
+     * Only a constructor with a string argument to force users to give meaningful
+     * messages.
+     *
+     * @param s
+     */
+    public SoundException(final String s) {
+	super("Vorbis exception " + s);
+    }
 
-	@Override
-	public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
-		throw new NotSerializableException();
-	}
+    @Override
+    public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
+	throw new NotSerializableException();
+    }
 
-	@Override
-	public void writeExternal(final ObjectOutput out) throws IOException {
-		throw new NotSerializableException();
-	}
+    @Override
+    public void writeExternal(final ObjectOutput out) throws IOException {
+	throw new NotSerializableException();
+    }
 }

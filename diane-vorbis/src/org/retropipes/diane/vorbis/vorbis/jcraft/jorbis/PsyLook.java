@@ -21,14 +21,14 @@ package org.retropipes.diane.vorbis.vorbis.jcraft.jorbis;
  *
  */
 class PsyLook {
-	int n;
-	PsyInfo vi;
-	float[][][] tonecurves;
-	float[][] peakatt;
-	float[][][] noisecurves;
-	float[] ath;
-	int[] octave;
+    int n;
+    PsyInfo vi;
+    float[][][] tonecurves;
+    float[][] peakatt;
+    float[][][] noisecurves;
+    float[] ath;
+    int[] octave;
 
-	void init(final PsyInfo vi, final int n, final int rate) {
-	}
+    void init(final PsyInfo vi, final int n, final int rate) {
+    }
 }

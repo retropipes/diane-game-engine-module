@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.edge;
 
 public enum EdgeDirection {
-	HORIZONTAL, VERTICAL, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST;
+    HORIZONTAL, VERTICAL, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST;
 }

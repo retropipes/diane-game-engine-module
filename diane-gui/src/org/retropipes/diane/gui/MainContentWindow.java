@@ -23,295 +23,295 @@ import org.retropipes.diane.asset.music.DianeMusicPlayer;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
 
 public final class MainContentWindow {
-	private static MainContentWindow window;
+    private static MainContentWindow window;
 
-	public static void createMainWindow(final int width, final int height) {
-		if (MainContentWindow.window == null) {
-			MainContentWindow.window = new MainContentWindow(width, height);
-			MainContentWindow.window.frame.setIconImage(CommonDialogs.icon());
+    public static void createMainWindow(final int width, final int height) {
+	if (MainContentWindow.window == null) {
+	    MainContentWindow.window = new MainContentWindow(width, height);
+	    MainContentWindow.window.frame.setIconImage(CommonDialogs.icon());
+	}
+    }
+
+    public static MainContentWindow mainWindow() {
+	return MainContentWindow.window;
+    }
+
+    static JFrame owner() {
+	return MainContentWindow.mainWindow().frame;
+    }
+
+    private final JFrame frame;
+    private final Dimension contentSize;
+    private MainContent content;
+    private DianeMusicIndex currentMusic;
+    private JButton currentDefault;
+    private int savedDepth;
+    private int savedTitleDepth;
+    private final LinkedList<MainContent> savedContentStack;
+    private final LinkedList<String> savedTitleStack;
+    private final LinkedList<DianeMusicIndex> savedMusicStack;
+    private final LinkedList<JButton> savedDefaultButtonStack;
+
+    private MainContentWindow(final int width, final int height) {
+	this.frame = new JFrame();
+	this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.frame.setResizable(false);
+	this.contentSize = new Dimension(width, height);
+	this.content = this.createContent();
+	this.savedDepth = 0;
+	this.savedTitleDepth = 0;
+	this.savedContentStack = new LinkedList<>();
+	this.savedTitleStack = new LinkedList<>();
+	this.savedMusicStack = new LinkedList<>();
+	this.savedDefaultButtonStack = new LinkedList<>();
+	this.frame.setContentPane(this.content);
+	this.frame.setVisible(true);
+	this.frame.pack();
+    }
+
+    public void addKeyListener(final KeyListener l) {
+	this.frame.addKeyListener(l);
+    }
+
+    public void addWindowFocusListener(final WindowFocusListener l) {
+	this.frame.addWindowFocusListener(l);
+    }
+
+    public void addWindowListener(final WindowListener l) {
+	this.frame.addWindowListener(l);
+    }
+
+    public void attachContent(final MainContent customContent) {
+	// Alias for compatibility
+	this.setAndSave(customContent);
+    }
+
+    public void checkAndSetTitle(final String title) {
+	if (!this.savedTitleStack.isEmpty()) {
+	    this.frame.setTitle(title);
+	}
+    }
+
+    public boolean checkContent(final MainContent customContent) {
+	return this.content.equals(customContent);
+    }
+
+    MainContent content() {
+	return this.content;
+    }
+
+    public MainContent createContent() {
+	final var newContent = MainContentFactory.mainContent();
+	newContent.setPreferredSize(this.contentSize);
+	newContent.setMinimumSize(this.contentSize);
+	newContent.setMaximumSize(this.contentSize);
+	newContent.setSize(this.contentSize);
+	return newContent;
+    }
+
+    public int getHeight() {
+	return this.content.getHeight();
+    }
+
+    public Dimension getPreferredSize() {
+	return this.contentSize;
+    }
+
+    public int getWidth() {
+	return this.content.getWidth();
+    }
+
+    public boolean isEnabled() {
+	return this.frame.isEnabled();
+    }
+
+    public void pack() {
+	this.frame.pack();
+    }
+
+    public void removeKeyListener(final KeyListener l) {
+	this.frame.removeKeyListener(l);
+    }
+
+    public void removeTransferHandler() {
+	this.frame.setTransferHandler(null);
+    }
+
+    public void removeWindowFocusListener(final WindowFocusListener l) {
+	this.frame.removeWindowFocusListener(l);
+    }
+
+    public void removeWindowListener(final WindowListener l) {
+	this.frame.removeWindowListener(l);
+    }
+
+    public void restoreSaved() {
+	this.restoreSavedOthers();
+	this.restoreSavedTitle();
+    }
+
+    public void restoreSavedOthers() {
+	if (this.savedDepth > 0) {
+	    this.savedDepth--;
+	    this.content = this.savedContentStack.pop();
+	    this.frame.setContentPane(this.content);
+	    final var oldMusic = this.currentMusic;
+	    this.currentMusic = this.savedMusicStack.pop();
+	    if (this.currentMusic != null && this.currentMusic != oldMusic) {
+		try {
+		    DianeMusicPlayer.play(this.currentMusic);
+		} catch (final IOException e) {
+		    Diane.handleError(e);
 		}
+	    }
+	    this.currentDefault = this.savedDefaultButtonStack.pop();
+	    if (this.currentDefault != null) {
+		this.frame.getRootPane().setDefaultButton(this.currentDefault);
+	    }
 	}
+    }
 
-	public static MainContentWindow mainWindow() {
-		return MainContentWindow.window;
+    public void restoreSavedTitle() {
+	if (this.savedTitleDepth > 0) {
+	    this.savedTitleDepth--;
+	    this.frame.setTitle(this.savedTitleStack.pop());
 	}
+    }
 
-	static JFrame owner() {
-		return MainContentWindow.mainWindow().frame;
+    public void setAndSave(final MainContent customContent) {
+	this.savedContentStack.push(this.content);
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.currentMusic = DianeMusicIndex.NO_MUSIC;
+	this.currentDefault = null;
+    }
+
+    public void setAndSave(final MainContent customContent, final String title) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = DianeMusicIndex.NO_MUSIC;
+	this.currentDefault = null;
+    }
+
+    public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	final var oldMusic = this.currentMusic;
+	this.currentMusic = music;
+	this.currentDefault = null;
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
+	    try {
+		DianeMusicPlayer.play(this.currentMusic);
+	    } catch (final IOException e) {
+		Diane.handleError(e);
+	    }
 	}
+    }
 
-	private final JFrame frame;
-	private final Dimension contentSize;
-	private MainContent content;
-	private DianeMusicIndex currentMusic;
-	private JButton currentDefault;
-	private int savedDepth;
-	private int savedTitleDepth;
-	private final LinkedList<MainContent> savedContentStack;
-	private final LinkedList<String> savedTitleStack;
-	private final LinkedList<DianeMusicIndex> savedMusicStack;
-	private final LinkedList<JButton> savedDefaultButtonStack;
-
-	private MainContentWindow(final int width, final int height) {
-		this.frame = new JFrame();
-		this.frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-		this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.frame.setResizable(false);
-		this.contentSize = new Dimension(width, height);
-		this.content = this.createContent();
-		this.savedDepth = 0;
-		this.savedTitleDepth = 0;
-		this.savedContentStack = new LinkedList<>();
-		this.savedTitleStack = new LinkedList<>();
-		this.savedMusicStack = new LinkedList<>();
-		this.savedDefaultButtonStack = new LinkedList<>();
-		this.frame.setContentPane(this.content);
-		this.frame.setVisible(true);
-		this.frame.pack();
+    public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music,
+	    final JButton defaultButton) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	final var oldMusic = this.currentMusic;
+	this.currentMusic = music;
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
+	    try {
+		DianeMusicPlayer.play(this.currentMusic);
+	    } catch (final IOException e) {
+		Diane.handleError(e);
+	    }
 	}
+	this.currentDefault = defaultButton;
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
 
-	public void addKeyListener(final KeyListener l) {
-		this.frame.addKeyListener(l);
-	}
+    public void setAndSave(final MainContent customContent, final String title, final JButton defaultButton) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = customContent;
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(title);
+	this.currentMusic = DianeMusicIndex.NO_MUSIC;
+	this.currentDefault = defaultButton;
+	this.frame.getRootPane().setDefaultButton(defaultButton);
+    }
 
-	public void addWindowFocusListener(final WindowFocusListener l) {
-		this.frame.addWindowFocusListener(l);
+    public void setAndSave(final ContentScreen screen) {
+	this.savedContentStack.push(this.content);
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedMusicStack.push(this.currentMusic);
+	this.savedDefaultButtonStack.push(this.currentDefault);
+	this.savedDepth++;
+	this.savedTitleDepth++;
+	this.content = screen.content();
+	this.frame.setContentPane(this.content);
+	this.frame.setTitle(screen.title());
+	final var oldMusic = this.currentMusic;
+	this.currentMusic = screen.music();
+	if (this.currentMusic != null && this.currentMusic != oldMusic) {
+	    try {
+		DianeMusicPlayer.play(this.currentMusic);
+	    } catch (final IOException e) {
+		Diane.handleError(e);
+	    }
 	}
+	this.currentDefault = screen.defaultButton();
+	this.frame.getRootPane().setDefaultButton(screen.defaultButton());
+    }
 
-	public void addWindowListener(final WindowListener l) {
-		this.frame.addWindowListener(l);
-	}
+    public void setDefaultButton(final JButton button) {
+	this.frame.getRootPane().setDefaultButton(button);
+    }
 
-	public void attachContent(final MainContent customContent) {
-		// Alias for compatibility
-		this.setAndSave(customContent);
-	}
+    public void setDirty(final boolean newDirty) {
+	this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
+    }
 
-	public void checkAndSetTitle(final String title) {
-		if (!this.savedTitleStack.isEmpty()) {
-			this.frame.setTitle(title);
-		}
-	}
+    public void setEnabled(final boolean value) {
+	this.frame.setEnabled(value);
+    }
 
-	public boolean checkContent(final MainContent customContent) {
-		return this.content.equals(customContent);
-	}
+    public void setMenus(final JMenuBar menus) {
+	this.frame.setJMenuBar(menus);
+    }
 
-	MainContent content() {
-		return this.content;
-	}
+    public void setTitle(final String title) {
+	this.savedTitleStack.push(this.frame.getTitle());
+	this.savedTitleDepth++;
+	this.frame.setTitle(title);
+    }
 
-	public MainContent createContent() {
-		final var newContent = MainContentFactory.mainContent();
-		newContent.setPreferredSize(this.contentSize);
-		newContent.setMinimumSize(this.contentSize);
-		newContent.setMaximumSize(this.contentSize);
-		newContent.setSize(this.contentSize);
-		return newContent;
-	}
-
-	public int getHeight() {
-		return this.content.getHeight();
-	}
-
-	public Dimension getPreferredSize() {
-		return this.contentSize;
-	}
-
-	public int getWidth() {
-		return this.content.getWidth();
-	}
-
-	public boolean isEnabled() {
-		return this.frame.isEnabled();
-	}
-
-	public void pack() {
-		this.frame.pack();
-	}
-
-	public void removeKeyListener(final KeyListener l) {
-		this.frame.removeKeyListener(l);
-	}
-
-	public void removeTransferHandler() {
-		this.frame.setTransferHandler(null);
-	}
-
-	public void removeWindowFocusListener(final WindowFocusListener l) {
-		this.frame.removeWindowFocusListener(l);
-	}
-
-	public void removeWindowListener(final WindowListener l) {
-		this.frame.removeWindowListener(l);
-	}
-
-	public void restoreSaved() {
-		this.restoreSavedOthers();
-		this.restoreSavedTitle();
-	}
-
-	public void restoreSavedOthers() {
-		if (this.savedDepth > 0) {
-			this.savedDepth--;
-			this.content = this.savedContentStack.pop();
-			this.frame.setContentPane(this.content);
-			final var oldMusic = this.currentMusic;
-			this.currentMusic = this.savedMusicStack.pop();
-			if (this.currentMusic != null && this.currentMusic != oldMusic) {
-				try {
-					DianeMusicPlayer.play(this.currentMusic);
-				} catch (final IOException e) {
-					Diane.handleError(e);
-				}
-			}
-			this.currentDefault = this.savedDefaultButtonStack.pop();
-			if (this.currentDefault != null) {
-				this.frame.getRootPane().setDefaultButton(this.currentDefault);
-			}
-		}
-	}
-
-	public void restoreSavedTitle() {
-		if (this.savedTitleDepth > 0) {
-			this.savedTitleDepth--;
-			this.frame.setTitle(this.savedTitleStack.pop());
-		}
-	}
-
-	public void setAndSave(final MainContent customContent) {
-		this.savedContentStack.push(this.content);
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = customContent;
-		this.frame.setContentPane(this.content);
-		this.currentMusic = DianeMusicIndex.NO_MUSIC;
-		this.currentDefault = null;
-	}
-
-	public void setAndSave(final MainContent customContent, final String title) {
-		this.savedContentStack.push(this.content);
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = customContent;
-		this.frame.setContentPane(this.content);
-		this.frame.setTitle(title);
-		this.currentMusic = DianeMusicIndex.NO_MUSIC;
-		this.currentDefault = null;
-	}
-
-	public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music) {
-		this.savedContentStack.push(this.content);
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = customContent;
-		this.frame.setContentPane(this.content);
-		this.frame.setTitle(title);
-		final var oldMusic = this.currentMusic;
-		this.currentMusic = music;
-		this.currentDefault = null;
-		if (this.currentMusic != null && this.currentMusic != oldMusic) {
-			try {
-				DianeMusicPlayer.play(this.currentMusic);
-			} catch (final IOException e) {
-				Diane.handleError(e);
-			}
-		}
-	}
-
-	public void setAndSave(final MainContent customContent, final String title, final DianeMusicIndex music,
-			final JButton defaultButton) {
-		this.savedContentStack.push(this.content);
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = customContent;
-		this.frame.setContentPane(this.content);
-		this.frame.setTitle(title);
-		final var oldMusic = this.currentMusic;
-		this.currentMusic = music;
-		if (this.currentMusic != null && this.currentMusic != oldMusic) {
-			try {
-				DianeMusicPlayer.play(this.currentMusic);
-			} catch (final IOException e) {
-				Diane.handleError(e);
-			}
-		}
-		this.currentDefault = defaultButton;
-		this.frame.getRootPane().setDefaultButton(defaultButton);
-	}
-
-	public void setAndSave(final MainContent customContent, final String title, final JButton defaultButton) {
-		this.savedContentStack.push(this.content);
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = customContent;
-		this.frame.setContentPane(this.content);
-		this.frame.setTitle(title);
-		this.currentMusic = DianeMusicIndex.NO_MUSIC;
-		this.currentDefault = defaultButton;
-		this.frame.getRootPane().setDefaultButton(defaultButton);
-	}
-
-	public void setAndSave(final ContentScreen screen) {
-		this.savedContentStack.push(this.content);
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedMusicStack.push(this.currentMusic);
-		this.savedDefaultButtonStack.push(this.currentDefault);
-		this.savedDepth++;
-		this.savedTitleDepth++;
-		this.content = screen.content();
-		this.frame.setContentPane(this.content);
-		this.frame.setTitle(screen.title());
-		final var oldMusic = this.currentMusic;
-		this.currentMusic = screen.music();
-		if (this.currentMusic != null && this.currentMusic != oldMusic) {
-			try {
-				DianeMusicPlayer.play(this.currentMusic);
-			} catch (final IOException e) {
-				Diane.handleError(e);
-			}
-		}
-		this.currentDefault = screen.defaultButton();
-		this.frame.getRootPane().setDefaultButton(screen.defaultButton());
-	}
-
-	public void setDefaultButton(final JButton button) {
-		this.frame.getRootPane().setDefaultButton(button);
-	}
-
-	public void setDirty(final boolean newDirty) {
-		this.frame.getRootPane().putClientProperty("Window.documentModified", Boolean.valueOf(newDirty));
-	}
-
-	public void setEnabled(final boolean value) {
-		this.frame.setEnabled(value);
-	}
-
-	public void setMenus(final JMenuBar menus) {
-		this.frame.setJMenuBar(menus);
-	}
-
-	public void setTitle(final String title) {
-		this.savedTitleStack.push(this.frame.getTitle());
-		this.savedTitleDepth++;
-		this.frame.setTitle(title);
-	}
-
-	public void setTransferHandler(final TransferHandler h) {
-		this.frame.setTransferHandler(h);
-	}
+    public void setTransferHandler(final TransferHandler h) {
+	this.frame.setTransferHandler(h);
+    }
 }

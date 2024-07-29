@@ -12,31 +12,31 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 class OggResource extends DianeOggPlayer {
-	private final URL soundURL;
-	private OggPlayThread player;
+    private final URL soundURL;
+    private OggPlayThread player;
 
-	public OggResource(final URL resURL) {
-		this.soundURL = resURL;
-	}
+    public OggResource(final URL resURL) {
+	this.soundURL = resURL;
+    }
 
-	@Override
-	public boolean isPlaying() {
-		return this.player != null && this.isAlive();
-	}
+    @Override
+    public boolean isPlaying() {
+	return this.player != null && this.isAlive();
+    }
 
-	@Override
-	public void run() {
-		try (var ais = AudioSystem.getAudioInputStream(this.soundURL)) {
-			this.player = new OggPlayThread(ais);
-			this.player.play();
-		} catch (final UnsupportedAudioFileException | IOException e1) {
-		}
+    @Override
+    public void run() {
+	try (var ais = AudioSystem.getAudioInputStream(this.soundURL)) {
+	    this.player = new OggPlayThread(ais);
+	    this.player.play();
+	} catch (final UnsupportedAudioFileException | IOException e1) {
 	}
+    }
 
-	@Override
-	protected void stopPlayer() {
-		if (this.player != null) {
-			this.player.stopPlaying();
-		}
+    @Override
+    protected void stopPlayer() {
+	if (this.player != null) {
+	    this.player.stopPlaying();
 	}
+    }
 }

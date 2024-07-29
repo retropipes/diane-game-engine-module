@@ -6,32 +6,32 @@ package org.retropipes.diane.fileio;
 import java.io.File;
 
 public interface DataIOReader extends AutoCloseable {
-	boolean atEOF() throws DataIOException;
+    boolean atEOF() throws DataIOException;
 
-	@Override
-	void close() throws DataIOException;
+    @Override
+    void close() throws DataIOException;
 
-	DataMode getDataIOMode();
+    DataMode getDataIOMode();
 
-	File getFile();
+    File getFile();
 
-	boolean readBoolean() throws DataIOException;
+    boolean readBoolean() throws DataIOException;
 
-	byte readByte() throws DataIOException;
+    byte readByte() throws DataIOException;
 
-	byte[] readBytes(int len) throws DataIOException;
+    byte[] readBytes(int len) throws DataIOException;
 
-	double readDouble() throws DataIOException;
+    double readDouble() throws DataIOException;
 
-	int readInt() throws DataIOException;
+    int readInt() throws DataIOException;
 
-	long readLong() throws DataIOException;
+    long readLong() throws DataIOException;
 
-	String readString() throws DataIOException;
+    String readString() throws DataIOException;
 
-	int readUnsignedByte() throws DataIOException;
+    int readUnsignedByte() throws DataIOException;
 
-	int readUnsignedShortByteArrayAsInt() throws DataIOException;
+    int readUnsignedShortByteArrayAsInt() throws DataIOException;
 
-	String readWindowsString(byte[] buflen) throws DataIOException;
+    String readWindowsString(byte[] buflen) throws DataIOException;
 }

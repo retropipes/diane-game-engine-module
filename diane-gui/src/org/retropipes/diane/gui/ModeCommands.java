@@ -4,25 +4,25 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.gui;
 
 public interface ModeCommands {
-	void createCommandsPane();
+    void createCommandsPane();
 
-	void disableDirtyCommands();
+    void disableDirtyCommands();
 
-	void disableLoadedCommands();
+    void disableLoadedCommands();
 
-	void disableModeCommands();
+    void disableModeCommands();
 
-	void enableDirtyCommands();
+    void enableDirtyCommands();
 
-	void enableLoadedCommands();
+    void enableLoadedCommands();
 
-	void enableModeCommands();
+    void enableModeCommands();
 
-	void enterMode();
+    void enterMode();
 
-	void exitMode();
+    void exitMode();
 
-	void setInitialState();
+    void setInitialState();
 
-	void setStatusMessage(String msg);
+    void setStatusMessage(String msg);
 }

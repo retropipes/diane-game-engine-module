@@ -4,5 +4,5 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.internal;
 
 public enum PrivateErrorString {
-	PRINT_ERROR_TITLE, PRINT_ERROR_MESSAGE, CANCEL_BUTTON, OK_BUTTON
+    PRINT_ERROR_TITLE, PRINT_ERROR_MESSAGE, CANCEL_BUTTON, OK_BUTTON
 }

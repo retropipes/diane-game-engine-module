@@ -6,5 +6,5 @@ package org.retropipes.diane.asset.ogg;
 import org.retropipes.diane.asset.DianeAssetIndex;
 
 public interface DianeOggIndex extends DianeAssetIndex {
-	public static final DianeOggIndex NO_MUSIC = null;
+    public static final DianeOggIndex NO_MUSIC = null;
 }

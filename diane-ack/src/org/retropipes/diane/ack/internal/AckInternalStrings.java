@@ -6,10 +6,10 @@ package org.retropipes.diane.ack.internal;
 import java.util.ResourceBundle;
 
 final class AckInternalStrings {
-	static String load(final int index) {
-		return ResourceBundle.getBundle("locale.ack.internal").getString(Integer.toString(index));
-	}
+    static String load(final int index) {
+	return ResourceBundle.getBundle("locale.ack.internal").getString(Integer.toString(index));
+    }
 
-	private AckInternalStrings() {
-	}
+    private AckInternalStrings() {
+    }
 }
