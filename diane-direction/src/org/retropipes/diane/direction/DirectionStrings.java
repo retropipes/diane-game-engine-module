@@ -7,11 +7,11 @@ import java.util.ResourceBundle;
 
 public final class DirectionStrings {
     public static String direction(final Direction item) {
-	return ResourceBundle.getBundle("locale.diane.direction").getString(Integer.toString(item.ordinal()));
+	return ResourceBundle.getBundle("locale.diane.direction.direction").getString(Integer.toString(item.ordinal()));
     }
 
     public static String directionSuffix(final Direction item) {
-	return ResourceBundle.getBundle("locale.diane.dirsuffix").getString(Integer.toString(item.ordinal()));
+	return ResourceBundle.getBundle("locale.diane.direction.dirsuffix").getString(Integer.toString(item.ordinal()));
     }
 
     private DirectionStrings() {
