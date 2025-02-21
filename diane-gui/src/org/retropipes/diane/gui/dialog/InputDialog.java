@@ -32,7 +32,7 @@ class InputDialog {
 	    final String[] possibleValues) {
 	// Create and initialize the dialog.
 	InputDialog.dialogFrame = MainWindow.mainWindow();
-	InputDialog.dialogPane = InputDialog.dialogFrame.createContent();
+	InputDialog.dialogPane = MainWindow.createContent();
 	// main part of the dialog
 	final var iconPane = new JPanel();
 	final var iconLabel = new JLabel(icon);
@@ -88,29 +88,35 @@ class InputDialog {
     public static Future<Integer> showConfirmDialog(final String text, final String title,
 	    final BufferedImageIcon icon) {
 	InputDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No" };
-	    InputDialog.initializeDialog(text, title, icon, possibleValues);
-	});
-	return InputDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		final String[] possibleValues = { "Yes", "No" };
+		InputDialog.initializeDialog(text, title, icon, possibleValues);
+	    });
+	    return InputDialog.completer;
+	}
     }
 
     public static Future<Integer> showDialog(final String text, final String title, final BufferedImageIcon icon,
 	    final String[] possibleValues) {
 	InputDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    InputDialog.initializeDialog(text, title, icon, possibleValues);
-	});
-	return InputDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		InputDialog.initializeDialog(text, title, icon, possibleValues);
+	    });
+	    return InputDialog.completer;
+	}
     }
 
     public static Future<Integer> showYNCConfirmDialog(final String text, final String title,
 	    final BufferedImageIcon icon) {
 	InputDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No", PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON) };
-	    InputDialog.initializeDialog(text, title, icon, possibleValues);
-	});
-	return InputDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		final String[] possibleValues = { "Yes", "No", PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON) };
+		InputDialog.initializeDialog(text, title, icon, possibleValues);
+	    });
+	    return InputDialog.completer;
+	}
     }
 }

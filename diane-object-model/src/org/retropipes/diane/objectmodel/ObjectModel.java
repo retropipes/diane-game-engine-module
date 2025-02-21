@@ -39,6 +39,7 @@ public final class ObjectModel implements Serializable {
 	}
     }
 
+    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj) {
 	    return true;
@@ -73,9 +74,10 @@ public final class ObjectModel implements Serializable {
     }
 
     public final ObjectId getId() {
-	return id;
+	return this.id;
     }
 
+    @Override
     public final int hashCode() {
 	return Objects.hash(this.counters, this.flags, this.id);
     }
@@ -120,8 +122,8 @@ public final class ObjectModel implements Serializable {
 	this.flags = value;
     }
 
-    public final void setId(ObjectId id) {
-	this.id = id;
+    public final void setId(ObjectId newId) {
+	this.id = newId;
     }
 
     public final void toggleFlag(final int index) {

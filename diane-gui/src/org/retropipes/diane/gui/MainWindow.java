@@ -60,7 +60,7 @@ public final class MainWindow {
 	this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	this.frame.setResizable(false);
 	this.contentSize = new Dimension(width, height);
-	this.content = this.createContent();
+	this.content = MainWindow.createContent();
 	this.savedDepth = 0;
 	this.savedTitleDepth = 0;
 	this.savedContentStack = new LinkedList<>();
@@ -103,7 +103,7 @@ public final class MainWindow {
 	return this.content;
     }
 
-    public MainContent createContent() {
+    public static MainContent createContent() {
 	return MainContentFactory.mainContent();
     }
 

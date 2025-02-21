@@ -32,7 +32,7 @@ class InputWithDefaultDialog {
 	    final String[] possibleValues, final String defaultButtonName) {
 	// Create and initialize the dialog.
 	InputWithDefaultDialog.dialogFrame = MainWindow.mainWindow();
-	InputWithDefaultDialog.dialogPane = InputWithDefaultDialog.dialogFrame.createContent();
+	InputWithDefaultDialog.dialogPane = MainWindow.createContent();
 	// main part of the dialog
 	final var iconPane = new JPanel();
 	final var iconLabel = new JLabel(icon);
@@ -92,29 +92,35 @@ class InputWithDefaultDialog {
     public static Future<Integer> showConfirmDialog(final String text, final String title, final BufferedImageIcon icon,
 	    final String defaultButton) {
 	InputWithDefaultDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No" };
-	    InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
-	});
-	return InputWithDefaultDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		final String[] possibleValues = { "Yes", "No" };
+		InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
+	    });
+	    return InputWithDefaultDialog.completer;
+	}
     }
 
     public static Future<Integer> showDialog(final String text, final String title, final BufferedImageIcon icon,
 	    final String[] possibleValues, final String defaultButton) {
 	InputWithDefaultDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
-	});
-	return InputWithDefaultDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
+	    });
+	    return InputWithDefaultDialog.completer;
+	}
     }
 
     public static Future<Integer> showYNCConfirmDialog(final String text, final String title,
 	    final BufferedImageIcon icon, final String defaultButton) {
 	InputWithDefaultDialog.completer = new CompletableFuture<>();
-	Executors.newSingleThreadExecutor().submit(() -> {
-	    final String[] possibleValues = { "Yes", "No", PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON) };
-	    InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
-	});
-	return InputWithDefaultDialog.completer;
+	try (var exec = Executors.newSingleThreadExecutor()) {
+	    exec.submit(() -> {
+		final String[] possibleValues = { "Yes", "No", PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON) };
+		InputWithDefaultDialog.initializeDialog(text, title, icon, possibleValues, defaultButton);
+	    });
+	    return InputWithDefaultDialog.completer;
+	}
     }
 }

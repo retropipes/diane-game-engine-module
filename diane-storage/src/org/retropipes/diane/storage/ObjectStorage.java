@@ -32,7 +32,7 @@ public class ObjectStorage<T> {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = new ArrayList<T>(product);
+	this.dataStore = new ArrayList<>(product);
 	// Populate storage
 	for (var x = 0; x < product; x++) {
 	    this.dataStore.add(null);

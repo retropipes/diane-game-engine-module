@@ -45,7 +45,7 @@ public class ObjectModelStorage implements Serializable {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = new ArrayList<ObjectModel>(product);
+	this.dataStore = new ArrayList<>(product);
 	// Populate storage
 	for (var x = 0; x < product; x++) {
 	    this.dataStore.add(null);
@@ -219,7 +219,6 @@ public class ObjectModelStorage implements Serializable {
      * Utility to change the shape.
      *
      * @param shape new simulated dimensions for the stored data
-     * @return a raw index
      */
     protected final void reshape(final int... shape) {
 	this.dataShape = shape;
@@ -229,7 +228,7 @@ public class ObjectModelStorage implements Serializable {
 	    this.interProd[x] = product;
 	    product *= this.dataShape[x];
 	}
-	this.dataStore = new ArrayList<ObjectModel>(product);
+	this.dataStore = new ArrayList<>(product);
 	// Populate storage
 	for (var x = 0; x < product; x++) {
 	    this.dataStore.add(null);
