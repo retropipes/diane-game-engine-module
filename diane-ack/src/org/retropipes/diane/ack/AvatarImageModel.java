@@ -23,6 +23,11 @@ public final class AvatarImageModel {
 	return String.format("%1$01X", value);
     }
 
+    public static AvatarImageModel createDefault() {
+	return new AvatarImageModel(0, 0, 0, 0, Color.gray, Color.yellow, Color.yellow, Color.yellow, Color.black,
+		Color.blue, Color.black, Color.black, Color.black, Color.black);
+    }
+
     // Fields
     private final int familyID;
     private final int weaponID;
