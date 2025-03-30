@@ -4,6 +4,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.asset.music;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -29,6 +30,10 @@ public class DianeMusicPlayer {
 	    DianeMusicPlayer.stopPlaying();
 	}
 	final var source = index.getURL();
+	DianeMusicPlayer.playSource(source);
+    }
+
+    public synchronized static void playSource(final URL source) throws IOException {
 	try (var inputStream = source.openStream()) {
 	    final var moduleData = inputStream.readAllBytes();
 	    DianeMusicPlayer.module = new Module(moduleData);
