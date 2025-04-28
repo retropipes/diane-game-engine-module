@@ -1,1 +1,31 @@
-Diane Game Engine, reimagined as a set of Java modules.
+Diane Game Engine reimagined as a set of Java modules:
+
+- Internal: Contains the core of the engine, and is needed by most of the other modules.
+- Asset: Contains support common to all types of game assets.
+- Asset Image: Image-related support, including scaling and recoloring.
+- Asset Sound: You want to play sound effects? Use this.
+- Asset Music: For all your MOD, S3M and XM music playing needs.
+- Asset OGG: Music files in OGG Vorbis format? Use this to play them.
+- Direction: Contains various direction related tools and helpers.
+- Draw Grid: For your grid-based drawing needs.
+- Edge: If you need your image assets with generated edge transitions...
+- File I/O Utility: The name says it all, really.
+- File I/O: For reading and writing files in various formats.
+- Game Engine Module: An "all-in-one" that depends on all the other modules.
+- Game Shell: High-level boilerplate for games.
+- GUI Picker: For those times you need to pick something.
+- GUI PolyTable: For displaying tables defined by polynomials.
+- GUI: Build the user interface with this.
+- Help: Get users unstuck.
+- Integration: Integrate with the operating system.
+- Object Model: Game object boilerplate.
+- Point: Simple classes representing points in 1-6 dimensions.
+- PolyTable: Define tables using polynomials.
+- Protect: Guard access with a password.
+- Random: This is your Random Number Generator.
+- Sandbox: Limit where files are stored or loaded from.
+- Scoring: Maintain a score list - high or low, can have multiple values per score, can customize sorting for multiple values.
+- Storage: For those times you need N-dimensional arrays of things.
+- Update: If you want the game to be able to check for updates to itself.
+- Utility: General utilities useful in many places.
+- Vorbis: Provides OGG Vorbis support to Asset OGG.
