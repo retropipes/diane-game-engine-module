@@ -33,12 +33,12 @@ class Time0 extends FuncTime {
 
     @Override
     int inverse(final Block vb, final Object i, final float[] in, final float[] out) {
-	return 0;
+        return 0;
     }
 
     @Override
     Object look(final DspState vd, final InfoMode mi, final Object i) {
-	return "";
+        return "";
     }
 
     @Override
@@ -47,6 +47,6 @@ class Time0 extends FuncTime {
 
     @Override
     Object unpack(final Info vi, final Buffer opb) {
-	return "";
+        return "";
     }
 }

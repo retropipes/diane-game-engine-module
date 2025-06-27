@@ -46,18 +46,18 @@ public abstract class TFormatConversionProvider extends FormatConversionProvider
     // $$fb2000-10-04: use AudioSystem.NOT_SPECIFIED for all fields.
     @Override
     public AudioInputStream getAudioInputStream(final AudioFormat.Encoding targetEncoding,
-	    final AudioInputStream audioInputStream) {
-	final var sourceFormat = audioInputStream.getFormat();
-	final var targetFormat = new AudioFormat(targetEncoding, AudioSystem.NOT_SPECIFIED, // sample rate
-		AudioSystem.NOT_SPECIFIED, // sample size in bits
-		AudioSystem.NOT_SPECIFIED, // channels
-		AudioSystem.NOT_SPECIFIED, // frame size
-		AudioSystem.NOT_SPECIFIED, // frame rate
-		sourceFormat.isBigEndian()); // big endian
-	TFormatConversionProvider.LOG.log(Level.FINE,
-		"TFormatConversionProvider.getAudioInputStream(AudioFormat.Encoding, AudioInputStream):");
-	TFormatConversionProvider.LOG.log(Level.FINE, "trying to convert to {0}", targetFormat);
-	return this.getAudioInputStream(targetFormat, audioInputStream);
+            final AudioInputStream audioInputStream) {
+        final var sourceFormat = audioInputStream.getFormat();
+        final var targetFormat = new AudioFormat(targetEncoding, AudioSystem.NOT_SPECIFIED, // sample rate
+                AudioSystem.NOT_SPECIFIED, // sample size in bits
+                AudioSystem.NOT_SPECIFIED, // channels
+                AudioSystem.NOT_SPECIFIED, // frame size
+                AudioSystem.NOT_SPECIFIED, // frame rate
+                sourceFormat.isBigEndian()); // big endian
+        TFormatConversionProvider.LOG.log(Level.FINE,
+                "TFormatConversionProvider.getAudioInputStream(AudioFormat.Encoding, AudioInputStream):");
+        TFormatConversionProvider.LOG.log(Level.FINE, "trying to convert to {0}", targetFormat);
+        return this.getAudioInputStream(targetFormat, audioInputStream);
     }
 
     /**
@@ -78,22 +78,22 @@ public abstract class TFormatConversionProvider extends FormatConversionProvider
      */
     @Override
     public boolean isConversionSupported(final AudioFormat targetFormat, final AudioFormat sourceFormat) {
-	TFormatConversionProvider.LOG.log(Level.FINE,
-		">TFormatConversionProvider.isConversionSupported(AudioFormat, AudioFormat):");
-	TFormatConversionProvider.LOG.log(Level.FINE, "class: {0}", this.getClass().getName());
-	TFormatConversionProvider.LOG.log(Level.FINE, "checking if conversion possible");
-	TFormatConversionProvider.LOG.log(Level.FINE, "from: {0}", sourceFormat);
-	TFormatConversionProvider.LOG.log(Level.FINE, "to: {0}", targetFormat);
-	final var aTargetFormats = this.getTargetFormats(targetFormat.getEncoding(), sourceFormat);
-	for (final AudioFormat aTargetFormat : aTargetFormats) {
-	    TFormatConversionProvider.LOG.log(Level.FINE, "checking against possible target format: {0}",
-		    aTargetFormat);
-	    if (aTargetFormat != null && AudioFormats.matches(aTargetFormat, targetFormat)) {
-		TFormatConversionProvider.LOG.log(Level.FINE, "<result=true");
-		return true;
-	    }
-	}
-	TFormatConversionProvider.LOG.log(Level.FINE, "<result=false");
-	return false;
+        TFormatConversionProvider.LOG.log(Level.FINE,
+                ">TFormatConversionProvider.isConversionSupported(AudioFormat, AudioFormat):");
+        TFormatConversionProvider.LOG.log(Level.FINE, "class: {0}", this.getClass().getName());
+        TFormatConversionProvider.LOG.log(Level.FINE, "checking if conversion possible");
+        TFormatConversionProvider.LOG.log(Level.FINE, "from: {0}", sourceFormat);
+        TFormatConversionProvider.LOG.log(Level.FINE, "to: {0}", targetFormat);
+        final var aTargetFormats = this.getTargetFormats(targetFormat.getEncoding(), sourceFormat);
+        for (final AudioFormat aTargetFormat : aTargetFormats) {
+            TFormatConversionProvider.LOG.log(Level.FINE, "checking against possible target format: {0}",
+                    aTargetFormat);
+            if (aTargetFormat != null && AudioFormats.matches(aTargetFormat, targetFormat)) {
+                TFormatConversionProvider.LOG.log(Level.FINE, "<result=true");
+                return true;
+            }
+        }
+        TFormatConversionProvider.LOG.log(Level.FINE, "<result=false");
+        return false;
     }
 }

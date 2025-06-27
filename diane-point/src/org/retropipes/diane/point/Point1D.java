@@ -10,6 +10,6 @@ public class Point1D {
     }
 
     public Point1D(final int nx) {
-	this.x = nx;
+        this.x = nx;
     }
 }

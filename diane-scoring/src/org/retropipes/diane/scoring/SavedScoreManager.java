@@ -8,68 +8,68 @@ import java.io.IOException;
 import org.retropipes.diane.fileio.DataIOFactory;
 
 public class SavedScoreManager extends ScoreManager {
-    // Fields
-    private final String scoresFilename;
+	// Fields
+	private final String scoresFilename;
 
-    // Constructors
-    public SavedScoreManager(final int length, final boolean sortOrder, final long startingScore,
-	    final String customTitle, final String customUnit, final String scoresFile) {
-	this(1, length, sortOrder, startingScore, customTitle, new String[] { customUnit }, scoresFile);
-    }
-
-    public SavedScoreManager(final int mv, final int length, final boolean sortOrder, final long startingScore,
-	    final String customTitle, final String[] customUnit, final String scoresFile) {
-	super(mv, length, sortOrder, startingScore, customTitle, customUnit);
-	this.scoresFilename = scoresFile;
-	try {
-	    this.readScoresFile();
-	} catch (final IOException io) {
-	    // Do nothing
+	// Constructors
+	public SavedScoreManager(final int length, final boolean sortOrder, final long startingScore,
+			final String customTitle, final String customUnit, final String scoresFile) {
+		this(1, length, sortOrder, startingScore, customTitle, new String[] { customUnit }, scoresFile);
 	}
-    }
 
-    @Override
-    public boolean addScore(final long newScore) {
-	final var success = super.addScore(newScore);
-	try {
-	    this.writeScoresFile();
-	} catch (final IOException io) {
-	    // Do nothing
+	public SavedScoreManager(final int mv, final int length, final boolean sortOrder, final long startingScore,
+			final String customTitle, final String[] customUnit, final String scoresFile) {
+		super(mv, length, sortOrder, startingScore, customTitle, customUnit);
+		this.scoresFilename = scoresFile;
+		try {
+			this.readScoresFile();
+		} catch (final IOException io) {
+			// Do nothing
+		}
 	}
-	return success;
-    }
 
-    @Override
-    public boolean addScore(final long newScore, final String newName) {
-	final var success = super.addScore(newScore, newName);
-	try {
-	    this.writeScoresFile();
-	} catch (final IOException io) {
-	    // Do nothing
+	@Override
+	public boolean addScore(final long newScore) {
+		final var success = super.addScore(newScore);
+		try {
+			this.writeScoresFile();
+		} catch (final IOException io) {
+			// Do nothing
+		}
+		return success;
 	}
-	return success;
-    }
 
-    @Override
-    public boolean addScore(final long[] newScore) {
-	final var success = super.addScore(newScore);
-	try {
-	    this.writeScoresFile();
-	} catch (final IOException io) {
-	    // Do nothing
+	@Override
+	public boolean addScore(final long newScore, final String newName) {
+		final var success = super.addScore(newScore, newName);
+		try {
+			this.writeScoresFile();
+		} catch (final IOException io) {
+			// Do nothing
+		}
+		return success;
 	}
-	return success;
-    }
 
-    private void readScoresFile() throws IOException {
-	try (var reader = DataIOFactory.createReader(this.scoresFilename)) { // $NON-NLS-1$
-	    this.table = SortedScoreTable.readSortedScoreTable(reader);
+	@Override
+	public boolean addScore(final long[] newScore) {
+		final var success = super.addScore(newScore);
+		try {
+			this.writeScoresFile();
+		} catch (final IOException io) {
+			// Do nothing
+		}
+		return success;
 	}
-    }
 
-    private void writeScoresFile() throws IOException {
-	try (var writer = DataIOFactory.createWriter(this.scoresFilename)) { // $NON-NLS-1$
-	    this.table.writeSortedScoreTable(writer);
+	private void readScoresFile() throws IOException {
+		try (var reader = DataIOFactory.createReader(this.scoresFilename)) { // $NON-NLS-1$
+			this.table = SortedScoreTable.readSortedScoreTable(reader);
+		}
 	}
-    }
+
+	private void writeScoresFile() throws IOException {
+		try (var writer = DataIOFactory.createWriter(this.scoresFilename)) { // $NON-NLS-1$
+			this.table.writeSortedScoreTable(writer);
+		}
+	}
 }

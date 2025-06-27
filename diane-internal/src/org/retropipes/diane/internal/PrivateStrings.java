@@ -7,11 +7,11 @@ import java.util.ResourceBundle;
 
 public final class PrivateStrings {
     public static String error(final PrivateErrorString item) {
-	return ResourceBundle.getBundle("locale.diane.error").getString(Integer.toString(item.ordinal()));
+        return ResourceBundle.getBundle("locale.diane.error").getString(Integer.toString(item.ordinal()));
     }
 
     public static String ogg(final PrivateOggString item) {
-	return ResourceBundle.getBundle("locale.diane.ogg").getString(Integer.toString(item.ordinal()));
+        return ResourceBundle.getBundle("locale.diane.ogg").getString(Integer.toString(item.ordinal()));
     }
 
     private PrivateStrings() {

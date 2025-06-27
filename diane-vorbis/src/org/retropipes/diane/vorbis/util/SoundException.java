@@ -33,16 +33,16 @@ public class SoundException extends Exception implements Externalizable {
      * @param s
      */
     public SoundException(final String s) {
-	super("Vorbis exception " + s);
+        super("Vorbis exception " + s);
     }
 
     @Override
     public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
-	throw new NotSerializableException();
+        throw new NotSerializableException();
     }
 
     @Override
     public void writeExternal(final ObjectOutput out) throws IOException {
-	throw new NotSerializableException();
+        throw new NotSerializableException();
     }
 }

@@ -12,37 +12,37 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 class OggLoopFile extends DianeOggPlayer {
-    private final String filename;
-    private OggLoopPlayThread player;
+	private final String filename;
+	private OggLoopPlayThread player;
 
-    public OggLoopFile(final String Oggfile) {
-	this.filename = Oggfile;
-    }
-
-    @Override
-    public boolean isPlaying() {
-	return this.player != null && this.isAlive();
-    }
-
-    @Override
-    public void run() {
-	if (this.filename != null) {
-	    final var soundFile = new File(this.filename);
-	    if (!soundFile.exists()) {
-		return;
-	    }
-	    try (var ais = AudioSystem.getAudioInputStream(soundFile)) {
-		this.player = new OggLoopPlayThread(ais);
-		this.player.play();
-	    } catch (final UnsupportedAudioFileException | IOException e1) {
-	    }
+	public OggLoopFile(final String Oggfile) {
+		this.filename = Oggfile;
 	}
-    }
 
-    @Override
-    protected void stopPlayer() {
-	if (this.player != null) {
-	    this.player.stopPlaying();
+	@Override
+	public boolean isPlaying() {
+		return this.player != null && this.isAlive();
 	}
-    }
+
+	@Override
+	public void run() {
+		if (this.filename != null) {
+			final var soundFile = new File(this.filename);
+			if (!soundFile.exists()) {
+				return;
+			}
+			try (var ais = AudioSystem.getAudioInputStream(soundFile)) {
+				this.player = new OggLoopPlayThread(ais);
+				this.player.play();
+			} catch (final UnsupportedAudioFileException | IOException e1) {
+			}
+		}
+	}
+
+	@Override
+	protected void stopPlayer() {
+		if (this.player != null) {
+			this.player.stopPlaying();
+		}
+	}
 }

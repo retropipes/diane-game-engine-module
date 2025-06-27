@@ -18,117 +18,117 @@ public final class ObjectModel implements Serializable {
     }
 
     public final void addCounters(final int count) {
-	this.counters.addAll(Collections.nCopies(count, 0));
+        this.counters.addAll(Collections.nCopies(count, 0));
     }
 
     public final void addFlags(final int count) {
-	this.flags.addAll(Collections.nCopies(count, false));
+        this.flags.addAll(Collections.nCopies(count, false));
     }
 
     public final void addOneCounter() {
-	this.counters.add(0);
+        this.counters.add(0);
     }
 
     public final void addOneFlag() {
-	this.flags.add(false);
+        this.flags.add(false);
     }
 
     public final void decrementCounter(final int index) {
-	if (index >= 0 && index < this.counters.size()) {
-	    this.counters.set(index, this.counters.get(index) - 1);
-	}
+        if (index >= 0 && index < this.counters.size()) {
+            this.counters.set(index, this.counters.get(index) - 1);
+        }
     }
 
     @Override
     public final boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!(obj instanceof final ObjectModel other)) {
-	    return false;
-	}
-	return Objects.equals(this.counters, other.counters) && Objects.equals(this.flags, other.flags)
-		&& this.id == other.id;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof final ObjectModel other)) {
+            return false;
+        }
+        return Objects.equals(this.counters, other.counters) && Objects.equals(this.flags, other.flags)
+                && this.id == other.id;
     }
 
     public final int getCounter(final int index) {
-	if (index >= 0 && index < this.counters.size()) {
-	    return this.counters.get(index);
-	}
-	return 0;
+        if (index >= 0 && index < this.counters.size()) {
+            return this.counters.get(index);
+        }
+        return 0;
     }
 
     public final List<Integer> getCounters() {
-	return this.counters;
+        return this.counters;
     }
 
     public final boolean getFlag(final int index) {
-	if (index >= 0 && index < this.flags.size()) {
-	    return this.flags.get(index);
-	}
-	return false;
+        if (index >= 0 && index < this.flags.size()) {
+            return this.flags.get(index);
+        }
+        return false;
     }
 
     public final List<Boolean> getFlags() {
-	return this.flags;
+        return this.flags;
     }
 
     public final ObjectId getId() {
-	return this.id;
+        return this.id;
     }
 
     @Override
     public final int hashCode() {
-	return Objects.hash(this.counters, this.flags, this.id);
+        return Objects.hash(this.counters, this.flags, this.id);
     }
 
     public final void incrementCounter(final int index) {
-	if (index >= 0 && index < this.counters.size()) {
-	    this.counters.set(index, this.counters.get(index) + 1);
-	}
+        if (index >= 0 && index < this.counters.size()) {
+            this.counters.set(index, this.counters.get(index) + 1);
+        }
     }
 
     public final int maxCounters() {
-	return this.counters.size();
+        return this.counters.size();
     }
 
     public final int maxFlags() {
-	return this.flags.size();
+        return this.flags.size();
     }
 
     public final void offsetCounter(final int index, final int value) {
-	if (index >= 0 && index < this.counters.size()) {
-	    this.counters.set(index, this.counters.get(index) + value);
-	}
+        if (index >= 0 && index < this.counters.size()) {
+            this.counters.set(index, this.counters.get(index) + value);
+        }
     }
 
     public final void setCounter(final int index, final int value) {
-	if (index >= 0 && index < this.counters.size()) {
-	    this.counters.set(index, value);
-	}
+        if (index >= 0 && index < this.counters.size()) {
+            this.counters.set(index, value);
+        }
     }
 
     public final void setCounters(final List<Integer> value) {
-	this.counters = value;
+        this.counters = value;
     }
 
     public final void setFlag(final int index, final boolean value) {
-	if (index >= 0 && index < this.flags.size()) {
-	    this.flags.set(index, value);
-	}
+        if (index >= 0 && index < this.flags.size()) {
+            this.flags.set(index, value);
+        }
     }
 
     public final void setFlags(final List<Boolean> value) {
-	this.flags = value;
+        this.flags = value;
     }
 
     public final void setId(ObjectId newId) {
-	this.id = newId;
+        this.id = newId;
     }
 
     public final void toggleFlag(final int index) {
-	if (index >= 0 && index < this.flags.size()) {
-	    this.flags.set(index, !this.flags.get(index));
-	}
+        if (index >= 0 && index < this.flags.size()) {
+            this.flags.set(index, !this.flags.get(index));
+        }
     }
 }
