@@ -95,13 +95,13 @@ class ImageListWithDescDialog {
 				ImageListWithDescDialog.descs = possibleDescriptions;
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					ImageListWithDescDialog.setValue(CommonDialogs.CANCEL);
 					ImageListWithDescDialog.dialogFrame.restoreSaved();
 				});
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					ImageListWithDescDialog.setValue(ImageListWithDescDialog.list.getSelectedIndex());
 					ImageListWithDescDialog.dialogFrame.restoreSaved();
 				});
@@ -125,7 +125,7 @@ class ImageListWithDescDialog {
 						}
 					}
 				});
-				ImageListWithDescDialog.list.addListSelectionListener(e -> descArea
+				ImageListWithDescDialog.list.addListSelectionListener(_ -> descArea
 						.setText(ImageListWithDescDialog.descs[ImageListWithDescDialog.list.getSelectedIndex()]));
 				final var listScroller = new JScrollPane(ImageListWithDescDialog.list);
 				listScroller.setPreferredSize(

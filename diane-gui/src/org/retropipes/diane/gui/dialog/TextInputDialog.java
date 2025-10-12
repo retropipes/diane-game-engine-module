@@ -51,13 +51,13 @@ class TextInputDialog {
 				TextInputDialog.dialogPane = MainWindow.createContent();
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					TextInputDialog.setValue(null);
 					TextInputDialog.dialogFrame.restoreSaved();
 				});
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					TextInputDialog.setValue(TextInputDialog.input.getText());
 					TextInputDialog.dialogFrame.restoreSaved();
 				});

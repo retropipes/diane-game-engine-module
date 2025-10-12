@@ -90,14 +90,14 @@ class ImageListDialog {
 				ImageListDialog.dialogPane = MainWindow.createContent();
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					ImageListDialog.setValue(CommonDialogs.CANCEL);
 					ImageListDialog.dialogFrame.restoreSaved();
 				});
 				//
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					ImageListDialog.setValue(ImageListDialog.list.getSelectedIndex());
 					ImageListDialog.dialogFrame.restoreSaved();
 				});

@@ -50,13 +50,13 @@ class PasswordInputDialog {
 				PasswordInputDialog.dialogPane = MainWindow.createContent();
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					PasswordInputDialog.setValue(null);
 					PasswordInputDialog.dialogFrame.restoreSaved();
 				});
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					PasswordInputDialog.setValue(PasswordInputDialog.input.getPassword());
 					PasswordInputDialog.dialogFrame.restoreSaved();
 				});

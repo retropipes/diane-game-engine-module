@@ -90,14 +90,14 @@ class ListDialog {
 				ListDialog.dialogPane = MainWindow.createContent();
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					ListDialog.setValue(null);
 					ListDialog.dialogFrame.restoreSaved();
 				});
 				//
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					ListDialog.setValue(ListDialog.list.getSelectedValue());
 					ListDialog.dialogFrame.restoreSaved();
 				});

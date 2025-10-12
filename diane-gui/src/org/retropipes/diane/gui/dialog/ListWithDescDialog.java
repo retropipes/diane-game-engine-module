@@ -93,13 +93,13 @@ class ListWithDescDialog {
 				ListWithDescDialog.descs = possibleDescriptions;
 				// Create and initialize the buttons.
 				final var cancelButton = new JButton(PrivateStrings.error(PrivateErrorString.CANCEL_BUTTON));
-				cancelButton.addActionListener(h -> {
+				cancelButton.addActionListener(_ -> {
 					ListWithDescDialog.setValue(null);
 					ListWithDescDialog.dialogFrame.restoreSaved();
 				});
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					ListWithDescDialog.setValue(ListWithDescDialog.list.getSelectedValue());
 					ListWithDescDialog.dialogFrame.restoreSaved();
 				});
@@ -124,7 +124,7 @@ class ListWithDescDialog {
 					}
 				});
 				ListWithDescDialog.list.addListSelectionListener(
-						e -> descArea.setText(ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
+						_ -> descArea.setText(ListWithDescDialog.descs[ListWithDescDialog.list.getSelectedIndex()]));
 				final var listScroller = new JScrollPane(ListWithDescDialog.list);
 				listScroller.setPreferredSize(
 						new Dimension(CommonDialogs.DEFAULT_ELEM_WIDTH, CommonDialogs.DEFAULT_ELEM_HEIGHT));

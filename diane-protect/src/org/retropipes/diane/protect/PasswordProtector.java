@@ -60,7 +60,7 @@ public class PasswordProtector {
 		this.buttonPanel = new JPanel();
 		this.okButton = new JButton("OK"); //$NON-NLS-1$
 		this.okButton.setDefaultCapable(true);
-		this.okButton.addActionListener(e -> {
+		this.okButton.addActionListener(_ -> {
 			final var pp = PasswordProtector.this;
 			if (pp.getMode() == PasswordProtector.MODE_GET) {
 				pp.checkPassword();
@@ -73,7 +73,7 @@ public class PasswordProtector {
 		});
 		this.cancelButton = new JButton("Cancel"); //$NON-NLS-1$
 		this.cancelButton.setDefaultCapable(false);
-		this.cancelButton.addActionListener(e -> {
+		this.cancelButton.addActionListener(_ -> {
 			final var pp = PasswordProtector.this;
 			pp.failure();
 			pp.hideForm();

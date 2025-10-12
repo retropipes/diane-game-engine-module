@@ -40,7 +40,7 @@ class GeneralDialog {
 				// Create and initialize the buttons.
 				final var setButton = new JButton(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
 				setButton.setActionCommand(PrivateStrings.error(PrivateErrorString.OK_BUTTON));
-				setButton.addActionListener(h -> {
+				setButton.addActionListener(_ -> {
 					GeneralDialog.completer.complete(null);
 					GeneralDialog.dialogFrame.restoreSaved();
 				});
