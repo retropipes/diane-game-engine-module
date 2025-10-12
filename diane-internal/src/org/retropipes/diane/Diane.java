@@ -4,7 +4,6 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane;
 
 import org.retropipes.diane.internal.DianeDefaultErrorHandler;
-import org.retropipes.diane.internal.DianeErrorHandler;
 
 public class Diane {
     private static DianeErrorHandler errHandler;

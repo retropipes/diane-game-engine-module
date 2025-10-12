@@ -6,9 +6,9 @@ package org.retropipes.diane.gameshell;
 import java.util.HashMap;
 
 import org.retropipes.diane.Diane;
+import org.retropipes.diane.DianeErrorHandler;
 import org.retropipes.diane.gui.Screen;
 import org.retropipes.diane.gui.dialog.CommonDialogs;
-import org.retropipes.diane.internal.DianeErrorHandler;
 import org.retropipes.diane.internal.ErrorLogger;
 
 public abstract class GameShell {
