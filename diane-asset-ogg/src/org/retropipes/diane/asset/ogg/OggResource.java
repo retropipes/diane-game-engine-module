@@ -16,27 +16,27 @@ class OggResource extends DianeOggPlayer {
     private OggPlayThread player;
 
     public OggResource(final URL resURL) {
-        this.soundURL = resURL;
+	this.soundURL = resURL;
     }
 
     @Override
     public boolean isPlaying() {
-        return this.player != null && this.isAlive();
+	return this.player != null && this.isAlive();
     }
 
     @Override
     public void run() {
-        try (var ais = AudioSystem.getAudioInputStream(this.soundURL)) {
-            this.player = new OggPlayThread(ais);
-            this.player.play();
-        } catch (final UnsupportedAudioFileException | IOException e1) {
-        }
+	try (var ais = AudioSystem.getAudioInputStream(this.soundURL)) {
+	    this.player = new OggPlayThread(ais);
+	    this.player.play();
+	} catch (final UnsupportedAudioFileException | IOException e1) {
+	}
     }
 
     @Override
     protected void stopPlayer() {
-        if (this.player != null) {
-            this.player.stopPlaying();
-        }
+	if (this.player != null) {
+	    this.player.stopPlaying();
+	}
     }
 }

@@ -25,18 +25,18 @@ public class ObjectStorage<T> {
      * @param shape simulated dimensions for the stored data
      */
     public ObjectStorage(final int... shape) {
-        this.dataShape = shape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(product);
-        // Populate storage
-        for (var x = 0; x < product; x++) {
-            this.dataStore.add(null);
-        }
+	this.dataShape = shape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(product);
+	// Populate storage
+	for (var x = 0; x < product; x++) {
+	    this.dataStore.add(null);
+	}
     }
 
     // Protected copy constructor
@@ -47,14 +47,14 @@ public class ObjectStorage<T> {
      * @param shape  simulated dimensions for the stored data
      */
     protected ObjectStorage(final ArrayList<T> source, final int... shape) {
-        this.dataShape = shape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(source);
+	this.dataShape = shape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(source);
     }
 
     // Copy constructor
@@ -64,14 +64,14 @@ public class ObjectStorage<T> {
      * @param source the @self to make a copy of
      */
     public ObjectStorage(final ObjectStorage<T> source) {
-        this.dataShape = source.dataShape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(source.dataStore);
+	this.dataShape = source.dataShape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(source.dataStore);
     }
 
     /**
@@ -82,13 +82,13 @@ public class ObjectStorage<T> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || !(obj instanceof final ObjectStorage other) || this.dataStore.equals(other.dataStore)) {
-            return false;
-        }
-        return true;
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null || !(obj instanceof final ObjectStorage other) || this.dataStore.equals(other.dataStore)) {
+	    return false;
+	}
+	return true;
     }
 
     /**
@@ -97,10 +97,10 @@ public class ObjectStorage<T> {
      * @param obj the data to fill with
      */
     public final void fill(final T obj) {
-        var limit = this.getRawLength();
-        for (var x = 0; x < limit; x++) {
-            this.dataStore.set(x, obj);
-        }
+	var limit = this.getRawLength();
+	for (var x = 0; x < limit; x++) {
+	    this.dataStore.set(x, obj);
+	}
     }
 
     /**
@@ -110,8 +110,8 @@ public class ObjectStorage<T> {
      * @return the data at that location
      */
     public final T getCell(final int... loc) {
-        final var rawLoc = this.ravelLocation(loc);
-        return this.dataStore.get(rawLoc);
+	final var rawLoc = this.ravelLocation(loc);
+	return this.dataStore.get(rawLoc);
     }
 
     /**
@@ -122,7 +122,7 @@ public class ObjectStorage<T> {
      * @return the data at that index
      */
     protected final T getRawCell(final int rawLoc) {
-        return this.dataStore.get(rawLoc);
+	return this.dataStore.get(rawLoc);
     }
 
     /**
@@ -131,7 +131,7 @@ public class ObjectStorage<T> {
      * @return the underlying array length
      */
     protected final int getRawLength() {
-        return this.dataStore.size();
+	return this.dataStore.size();
     }
 
     /**
@@ -140,7 +140,7 @@ public class ObjectStorage<T> {
      * @return the shape, as an array of integers
      */
     public final int[] getShape() {
-        return this.dataShape;
+	return this.dataShape;
     }
 
     /**
@@ -148,9 +148,9 @@ public class ObjectStorage<T> {
      */
     @Override
     public int hashCode() {
-        final var prime = 31;
-        final var result = 1;
-        return prime * result + this.dataStore.hashCode();
+	final var prime = 31;
+	final var result = 1;
+	return prime * result + this.dataStore.hashCode();
     }
 
     /**
@@ -160,19 +160,19 @@ public class ObjectStorage<T> {
      * @return a raw index
      */
     protected final int ravelLocation(final int... loc) {
-        var res = 0;
-        // Sanity check #1
-        if (loc.length != this.interProd.length) {
-            throw new IllegalArgumentException(Integer.toString(loc.length));
-        }
-        for (var x = 0; x < this.interProd.length; x++) {
-            // Sanity check #2
-            if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
-                throw new ArrayIndexOutOfBoundsException(loc[x]);
-            }
-            res += loc[x] * this.interProd[x];
-        }
-        return res;
+	var res = 0;
+	// Sanity check #1
+	if (loc.length != this.interProd.length) {
+	    throw new IllegalArgumentException(Integer.toString(loc.length));
+	}
+	for (var x = 0; x < this.interProd.length; x++) {
+	    // Sanity check #2
+	    if (loc[x] < 0 || loc[x] >= this.dataShape[x]) {
+		throw new ArrayIndexOutOfBoundsException(loc[x]);
+	    }
+	    res += loc[x] * this.interProd[x];
+	}
+	return res;
     }
 
     /**
@@ -182,8 +182,8 @@ public class ObjectStorage<T> {
      * @param loc the location to modify
      */
     public final void setCell(final T obj, final int... loc) {
-        final var rawLoc = this.ravelLocation(loc);
-        this.dataStore.set(rawLoc, obj);
+	final var rawLoc = this.ravelLocation(loc);
+	this.dataStore.set(rawLoc, obj);
     }
 
     /**
@@ -194,6 +194,6 @@ public class ObjectStorage<T> {
      * @param rawLoc the index to modify
      */
     protected final void setRawCell(final T obj, final int rawLoc) {
-        this.dataStore.set(rawLoc, obj);
+	this.dataStore.set(rawLoc, obj);
     }
 }

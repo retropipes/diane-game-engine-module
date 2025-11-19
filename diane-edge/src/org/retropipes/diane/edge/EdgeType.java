@@ -4,5 +4,6 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.edge;
 
 public enum EdgeType {
-    LINE, CORNER;
+    LINE,
+    CORNER;
 }

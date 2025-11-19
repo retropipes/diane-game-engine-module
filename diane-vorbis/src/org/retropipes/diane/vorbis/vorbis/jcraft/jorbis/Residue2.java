@@ -21,17 +21,17 @@ package org.retropipes.diane.vorbis.vorbis.jcraft.jorbis;
  *
  */
 class Residue2 extends Residue0 {
-	@Override
-	int inverse(final Block vb, final Object vl, final float[][] in, final int[] nonzero, final int ch) {
-		var i = 0;
-		for (i = 0; i < ch; i++) {
-			if (nonzero[i] != 0) {
-				break;
-			}
-		}
-		if (i == ch) {
-			return 0; /* no nonzero vectors */
-		}
-		return Residue0._2inverse(vb, vl, in, ch);
+    @Override
+    int inverse(final Block vb, final Object vl, final float[][] in, final int[] nonzero, final int ch) {
+	var i = 0;
+	for (i = 0; i < ch; i++) {
+	    if (nonzero[i] != 0) {
+		break;
+	    }
 	}
+	if (i == ch) {
+	    return 0; /* no nonzero vectors */
+	}
+	return Residue0._2inverse(vb, vl, in, ch);
+    }
 }

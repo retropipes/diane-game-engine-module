@@ -24,8 +24,8 @@ final class WindowsSandbox extends Sandbox {
     private static final String SHARED_PUBLIC_FALLBACK_DIR = "SharedPublic"; //$NON-NLS-1$
 
     private String getLibraryFallbackDirectory() {
-        return System.getenv(WindowsSandbox.FALLBACK_PREFIX) + File.pathSeparator + WindowsSandbox.LIBRARY_FALLBACK_DIR
-                + this.appName;
+	return System.getenv(WindowsSandbox.FALLBACK_PREFIX) + File.pathSeparator + WindowsSandbox.LIBRARY_FALLBACK_DIR
+		+ this.appName;
     }
 
     // Fields
@@ -34,46 +34,44 @@ final class WindowsSandbox extends Sandbox {
 
     // Constructor
     WindowsSandbox(final String name) {
-        this.flagCache = new HashMap<>();
-        this.appName = name;
+	this.flagCache = new HashMap<>();
+	this.appName = name;
     }
 
     @Override
     public void cacheFlags() {
-        this.flagCache.put(SandboxFlag.CAPS_LOCK,
-                Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK));
+	this.flagCache.put(SandboxFlag.CAPS_LOCK,
+		Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK));
     }
 
     @Override
     protected String getDirectory(final SystemDir dir) {
-        return switch (dir) {
-            case APPLICATION, SYSTEM_APPLICATION -> this.getLibraryFallbackDirectory();
-            case APPLICATION_SUPPORT, SYSTEM_APPLICATION_SUPPORT ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.APP_SUPPORT_FALLBACK_DIR;
-            case AUTOSAVED_INFORMATION ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.AUTOSAVE_FALLBACK_DIR;
-            case CACHES, SYSTEM_CACHES ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.CACHES_FALLBACK_DIR;
-            case DOCUMENTS ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.DOCUMENTS_FALLBACK_DIR;
-            case DESKTOP ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.DESKTOP_FALLBACK_DIR;
-            case DOWNLOADS ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.DOWNLOADS_FALLBACK_DIR;
-            case LIBRARY, SYSTEM_LIBRARY -> this.getLibraryFallbackDirectory();
-            case MOVIES -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.MOVIES_FALLBACK_DIR;
-            case MUSIC -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.MUSIC_FALLBACK_DIR;
-            case PICTURES ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.PICTURES_FALLBACK_DIR;
-            case SHARED_PUBLIC ->
-                this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.SHARED_PUBLIC_FALLBACK_DIR;
-            case SYSTEM_USER, USER_HOME -> System.getProperty("user.home"); //$NON-NLS-1$
-            default -> this.getLibraryFallbackDirectory();
-        };
+	return switch (dir) {
+	case APPLICATION, SYSTEM_APPLICATION -> this.getLibraryFallbackDirectory();
+	case APPLICATION_SUPPORT, SYSTEM_APPLICATION_SUPPORT -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.APP_SUPPORT_FALLBACK_DIR;
+	case AUTOSAVED_INFORMATION -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.AUTOSAVE_FALLBACK_DIR;
+	case CACHES, SYSTEM_CACHES -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.CACHES_FALLBACK_DIR;
+	case DOCUMENTS -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.DOCUMENTS_FALLBACK_DIR;
+	case DESKTOP -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.DESKTOP_FALLBACK_DIR;
+	case DOWNLOADS -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.DOWNLOADS_FALLBACK_DIR;
+	case LIBRARY, SYSTEM_LIBRARY -> this.getLibraryFallbackDirectory();
+	case MOVIES -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.MOVIES_FALLBACK_DIR;
+	case MUSIC -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.MUSIC_FALLBACK_DIR;
+	case PICTURES -> this.getLibraryFallbackDirectory() + File.pathSeparator + WindowsSandbox.PICTURES_FALLBACK_DIR;
+	case SHARED_PUBLIC -> this.getLibraryFallbackDirectory() + File.pathSeparator
+		+ WindowsSandbox.SHARED_PUBLIC_FALLBACK_DIR;
+	case SYSTEM_USER, USER_HOME -> System.getProperty("user.home"); //$NON-NLS-1$
+	default -> this.getLibraryFallbackDirectory();
+	};
     }
 
     @Override
     public boolean getFlag(final SandboxFlag flag) {
-        return this.flagCache.getOrDefault(flag, false);
+	return this.flagCache.getOrDefault(flag, false);
     }
 }

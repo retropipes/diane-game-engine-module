@@ -11,20 +11,20 @@ public final class ExceptionMessageConfiguration {
 
     // Constructor
     public ExceptionMessageConfiguration(final String excMessage, final String excTitle, final boolean useDialog) {
-        this.message = excMessage;
-        this.title = excTitle;
-        this.dialogDisplayed = useDialog;
+	this.message = excMessage;
+	this.title = excTitle;
+	this.dialogDisplayed = useDialog;
     }
 
     public String getMessage() {
-        return this.message;
+	return this.message;
     }
 
     public String getTitle() {
-        return this.title;
+	return this.title;
     }
 
     public boolean isDialogDisplayed() {
-        return this.dialogDisplayed;
+	return this.dialogDisplayed;
     }
 }

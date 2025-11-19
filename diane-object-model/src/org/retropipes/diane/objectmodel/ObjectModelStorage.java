@@ -38,18 +38,18 @@ public class ObjectModelStorage implements Serializable {
      * @param shape simulated dimensions for the stored data
      */
     public ObjectModelStorage(final int... shape) {
-        this.dataShape = shape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(product);
-        // Populate storage
-        for (var x = 0; x < product; x++) {
-            this.dataStore.add(null);
-        }
+	this.dataShape = shape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(product);
+	// Populate storage
+	for (var x = 0; x < product; x++) {
+	    this.dataStore.add(null);
+	}
     }
 
     /**
@@ -58,14 +58,14 @@ public class ObjectModelStorage implements Serializable {
      * @param source the @self to make a copy of
      */
     public ObjectModelStorage(final ObjectModelStorage source) {
-        this.dataShape = source.dataShape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(source.dataStore);
+	this.dataShape = source.dataShape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(source.dataStore);
     }
 
     /**
@@ -76,14 +76,14 @@ public class ObjectModelStorage implements Serializable {
      */
     @Override
     public boolean equals(final Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || !(other instanceof final ObjectModelStorage instance)
-                || this.dataStore.equals(instance.dataStore)) {
-            return false;
-        }
-        return true;
+	if (this == other) {
+	    return true;
+	}
+	if (other == null || !(other instanceof final ObjectModelStorage instance)
+		|| this.dataStore.equals(instance.dataStore)) {
+	    return false;
+	}
+	return true;
     }
 
     /**
@@ -92,10 +92,10 @@ public class ObjectModelStorage implements Serializable {
      * @param value the data to fill with
      */
     public final void fill(final ObjectModel value) {
-        var limit = this.getRawLength();
-        for (var x = 0; x < limit; x++) {
-            this.dataStore.set(x, value);
-        }
+	var limit = this.getRawLength();
+	for (var x = 0; x < limit; x++) {
+	    this.dataStore.set(x, value);
+	}
     }
 
     /**
@@ -105,8 +105,8 @@ public class ObjectModelStorage implements Serializable {
      * @return the data at that location
      */
     public final ObjectModel getCell(final int... location) {
-        final var rawLoc = this.ravelLocation(location);
-        return this.dataStore.get(rawLoc);
+	final var rawLoc = this.ravelLocation(location);
+	return this.dataStore.get(rawLoc);
     }
 
     /**
@@ -117,7 +117,7 @@ public class ObjectModelStorage implements Serializable {
      * @return the data at that index
      */
     protected final ObjectModel getRawCell(final int rawLocation) {
-        return this.dataStore.get(rawLocation);
+	return this.dataStore.get(rawLocation);
     }
 
     /**
@@ -126,7 +126,7 @@ public class ObjectModelStorage implements Serializable {
      * @return the underlying array length
      */
     protected final int getRawLength() {
-        return this.dataStore.size();
+	return this.dataStore.size();
     }
 
     /**
@@ -135,7 +135,7 @@ public class ObjectModelStorage implements Serializable {
      * @return the underlying storage
      */
     public final ArrayList<ObjectModel> getDataStore() {
-        return this.dataStore;
+	return this.dataStore;
     }
 
     /**
@@ -144,7 +144,7 @@ public class ObjectModelStorage implements Serializable {
      * @return the shape, as an array of integers
      */
     public final int[] getShape() {
-        return this.dataShape;
+	return this.dataShape;
     }
 
     /**
@@ -153,7 +153,7 @@ public class ObjectModelStorage implements Serializable {
      * @return the intermediate products, as an array of integers
      */
     public final int[] getInterProd() {
-        return this.interProd;
+	return this.interProd;
     }
 
     /**
@@ -162,7 +162,7 @@ public class ObjectModelStorage implements Serializable {
      * @param value the new underlying storage
      */
     public final void setDataStore(final ArrayList<ObjectModel> value) {
-        this.dataStore = value;
+	this.dataStore = value;
     }
 
     /**
@@ -171,7 +171,7 @@ public class ObjectModelStorage implements Serializable {
      * @param value the new shape, as an array of integers
      */
     public final void setShape(final int[] value) {
-        this.dataShape = value;
+	this.dataShape = value;
     }
 
     /**
@@ -180,7 +180,7 @@ public class ObjectModelStorage implements Serializable {
      * @param value the intermediate products, as an array of integers
      */
     public final void setInterProd(final int[] value) {
-        this.interProd = value;
+	this.interProd = value;
     }
 
     /**
@@ -188,9 +188,9 @@ public class ObjectModelStorage implements Serializable {
      */
     @Override
     public int hashCode() {
-        final var prime = 31;
-        final var result = 1;
-        return prime * result + this.dataStore.hashCode();
+	final var prime = 31;
+	final var result = 1;
+	return prime * result + this.dataStore.hashCode();
     }
 
     /**
@@ -200,19 +200,19 @@ public class ObjectModelStorage implements Serializable {
      * @return a raw index
      */
     protected final int ravelLocation(final int... location) {
-        var res = 0;
-        // Sanity check #1
-        if (location.length != this.interProd.length) {
-            throw new IllegalArgumentException(Integer.toString(location.length));
-        }
-        for (var x = 0; x < this.interProd.length; x++) {
-            // Sanity check #2
-            if (location[x] < 0 || location[x] >= this.dataShape[x]) {
-                throw new ArrayIndexOutOfBoundsException(location[x]);
-            }
-            res += location[x] * this.interProd[x];
-        }
-        return res;
+	var res = 0;
+	// Sanity check #1
+	if (location.length != this.interProd.length) {
+	    throw new IllegalArgumentException(Integer.toString(location.length));
+	}
+	for (var x = 0; x < this.interProd.length; x++) {
+	    // Sanity check #2
+	    if (location[x] < 0 || location[x] >= this.dataShape[x]) {
+		throw new ArrayIndexOutOfBoundsException(location[x]);
+	    }
+	    res += location[x] * this.interProd[x];
+	}
+	return res;
     }
 
     /**
@@ -221,18 +221,18 @@ public class ObjectModelStorage implements Serializable {
      * @param shape new simulated dimensions for the stored data
      */
     protected final void reshape(final int... shape) {
-        this.dataShape = shape;
-        this.interProd = new int[this.dataShape.length];
-        var product = 1;
-        for (var x = 0; x < this.dataShape.length; x++) {
-            this.interProd[x] = product;
-            product *= this.dataShape[x];
-        }
-        this.dataStore = new ArrayList<>(product);
-        // Populate storage
-        for (var x = 0; x < product; x++) {
-            this.dataStore.add(null);
-        }
+	this.dataShape = shape;
+	this.interProd = new int[this.dataShape.length];
+	var product = 1;
+	for (var x = 0; x < this.dataShape.length; x++) {
+	    this.interProd[x] = product;
+	    product *= this.dataShape[x];
+	}
+	this.dataStore = new ArrayList<>(product);
+	// Populate storage
+	for (var x = 0; x < product; x++) {
+	    this.dataStore.add(null);
+	}
     }
 
     /**
@@ -242,8 +242,8 @@ public class ObjectModelStorage implements Serializable {
      * @param location the location to modify
      */
     public final void setCell(final ObjectModel value, final int... location) {
-        final var rawLoc = this.ravelLocation(location);
-        this.dataStore.set(rawLoc, value);
+	final var rawLoc = this.ravelLocation(location);
+	this.dataStore.set(rawLoc, value);
     }
 
     /**
@@ -254,6 +254,6 @@ public class ObjectModelStorage implements Serializable {
      * @param rawLocation the index to modify
      */
     protected final void setRawCell(final ObjectModel value, final int rawLocation) {
-        this.dataStore.set(rawLocation, value);
+	this.dataStore.set(rawLocation, value);
     }
 }

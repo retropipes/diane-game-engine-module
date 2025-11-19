@@ -36,7 +36,7 @@ public class VorbisAudioFileFormat extends AudioFileFormat {
      * @param properties
      */
     public VorbisAudioFileFormat(final Type type, final AudioFormat audioFormat, final int nLengthInFrames,
-            final int nLengthInBytes, final Map<String, Object> properties) {
-        super(type, nLengthInBytes, audioFormat, nLengthInFrames);
+	    final int nLengthInBytes, final Map<String, Object> properties) {
+	super(type, nLengthInBytes, audioFormat, nLengthInFrames);
     }
 }

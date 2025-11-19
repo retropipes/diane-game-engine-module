@@ -34,7 +34,7 @@ import javax.sound.sampled.AudioInputStream;
  * @author Matthias Pfisterer
  */
 public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStream
-        implements CircularBuffer.BufferListener {
+	implements CircularBuffer.BufferListener {
     private static final Logger LOG = Logger.getLogger(AsynchronousFilteredAudioInputStream.class.getName());
     private static final int DEFAULT_BUFFER_SIZE = 327670;
     private static final int DEFAULT_MIN_AVAILABLE = 4096;
@@ -55,8 +55,8 @@ public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStr
      *                     AudioSystem.NOT_SPECIFIED.
      */
     public AsynchronousFilteredAudioInputStream(final AudioFormat outputFormat, final long lLength) {
-        this(outputFormat, lLength, AsynchronousFilteredAudioInputStream.DEFAULT_BUFFER_SIZE,
-                AsynchronousFilteredAudioInputStream.DEFAULT_MIN_AVAILABLE);
+	this(outputFormat, lLength, AsynchronousFilteredAudioInputStream.DEFAULT_BUFFER_SIZE,
+		AsynchronousFilteredAudioInputStream.DEFAULT_MIN_AVAILABLE);
     }
 
     /**
@@ -71,33 +71,33 @@ public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStr
      * @param nMinAvailable
      */
     public AsynchronousFilteredAudioInputStream(final AudioFormat outputFormat, final long lLength,
-            final int nBufferSize, final int nMinAvailable) {
-        /*
-         * The usage of a ByteArrayInputStream is a hack. (the infamous "JavaOne hack",
-         * because I did it on June 6th 2000 in San Francisco, only hours before a
-         * JavaOne session where I wanted to show mp3 playback with Java Sound.) It is
-         * necessary because in the FCS version of the Sun jdk1.3, the constructor of
-         * AudioInputStream throws an exception if its first argument is null. So we
-         * have to pass a dummy non-null value.
-         */
-        super(new ByteArrayInputStream(AsynchronousFilteredAudioInputStream.EMPTY_BYTE_ARRAY), outputFormat, lLength);
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
-                "TAsynchronousFilteredAudioInputStream.<init>(): begin");
-        this.m_circularBuffer = new CircularBuffer(nBufferSize, false, // blocking
-                // read
-                true, // blocking write
-                this); // trigger
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE, "TAsynchronousFilteredAudioInputStream.<init>(): end");
+	    final int nBufferSize, final int nMinAvailable) {
+	/*
+	 * The usage of a ByteArrayInputStream is a hack. (the infamous "JavaOne hack",
+	 * because I did it on June 6th 2000 in San Francisco, only hours before a
+	 * JavaOne session where I wanted to show mp3 playback with Java Sound.) It is
+	 * necessary because in the FCS version of the Sun jdk1.3, the constructor of
+	 * AudioInputStream throws an exception if its first argument is null. So we
+	 * have to pass a dummy non-null value.
+	 */
+	super(new ByteArrayInputStream(AsynchronousFilteredAudioInputStream.EMPTY_BYTE_ARRAY), outputFormat, lLength);
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
+		"TAsynchronousFilteredAudioInputStream.<init>(): begin");
+	this.m_circularBuffer = new CircularBuffer(nBufferSize, false, // blocking
+		// read
+		true, // blocking write
+		this); // trigger
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE, "TAsynchronousFilteredAudioInputStream.<init>(): end");
     }
 
     @Override
     public int available() throws IOException {
-        return this.m_circularBuffer.availableRead();
+	return this.m_circularBuffer.availableRead();
     }
 
     @Override
     public void close() throws IOException {
-        this.m_circularBuffer.close();
+	this.m_circularBuffer.close();
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStr
      * @return
      */
     protected CircularBuffer getCircularBuffer() {
-        return this.m_circularBuffer;
+	return this.m_circularBuffer;
     }
 
     @Override
@@ -115,66 +115,66 @@ public abstract class AsynchronousFilteredAudioInputStream extends AudioInputStr
 
     @Override
     public boolean markSupported() {
-        return false;
+	return false;
     }
 
     @Override
     public int read() throws IOException {
-        // if (TDebug.TraceAudioConverter) {
-        // TDebug.out("TAsynchronousFilteredAudioInputStream.read(): begin"); }
-        int nByte;
-        if (this.m_abSingleByte == null) {
-            this.m_abSingleByte = new byte[1];
-        }
-        final var nReturn = this.read(this.m_abSingleByte);
-        if (nReturn == -1) {
-            nByte = -1;
-        } else {
-            // $$fb 2001-04-14 nobody really knows that...
-            nByte = this.m_abSingleByte[0] & 0xFF;
-        }
-        // if (TDebug.TraceAudioConverter) {
-        // TDebug.out("TAsynchronousFilteredAudioInputStream.read(): end"); }
-        return nByte;
+	// if (TDebug.TraceAudioConverter) {
+	// TDebug.out("TAsynchronousFilteredAudioInputStream.read(): begin"); }
+	int nByte;
+	if (this.m_abSingleByte == null) {
+	    this.m_abSingleByte = new byte[1];
+	}
+	final var nReturn = this.read(this.m_abSingleByte);
+	if (nReturn == -1) {
+	    nByte = -1;
+	} else {
+	    // $$fb 2001-04-14 nobody really knows that...
+	    nByte = this.m_abSingleByte[0] & 0xFF;
+	}
+	// if (TDebug.TraceAudioConverter) {
+	// TDebug.out("TAsynchronousFilteredAudioInputStream.read(): end"); }
+	return nByte;
     }
 
     @Override
     public int read(final byte[] abData) throws IOException {
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
-                "TAsynchronousFilteredAudioInputStream.read(byte[]): begin");
-        final var nRead = this.read(abData, 0, abData.length);
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
-                "TAsynchronousFilteredAudioInputStream.read(byte[]): end");
-        return nRead;
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
+		"TAsynchronousFilteredAudioInputStream.read(byte[]): begin");
+	final var nRead = this.read(abData, 0, abData.length);
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
+		"TAsynchronousFilteredAudioInputStream.read(byte[]): end");
+	return nRead;
     }
 
     @Override
     public int read(final byte[] abData, final int nOffset, final int nLength) throws IOException {
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
-                "TAsynchronousFilteredAudioInputStream.read(byte[], int, int): begin");
-        // $$fb 2001-04-22: this returns at maximum circular buffer
-        // length. This is not very efficient...
-        // $$fb 2001-04-25: we should check that we do not exceed
-        // getFrameLength() !
-        final var nRead = this.m_circularBuffer.read(abData, nOffset, nLength);
-        AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
-                "TAsynchronousFilteredAudioInputStream.read(byte[], int, int): end");
-        return nRead;
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
+		"TAsynchronousFilteredAudioInputStream.read(byte[], int, int): begin");
+	// $$fb 2001-04-22: this returns at maximum circular buffer
+	// length. This is not very efficient...
+	// $$fb 2001-04-25: we should check that we do not exceed
+	// getFrameLength() !
+	final var nRead = this.m_circularBuffer.read(abData, nOffset, nLength);
+	AsynchronousFilteredAudioInputStream.LOG.log(Level.FINE,
+		"TAsynchronousFilteredAudioInputStream.read(byte[], int, int): end");
+	return nRead;
     }
 
     @Override
     public void reset() throws IOException {
-        throw new IOException("mark not supported");
+	throw new IOException("mark not supported");
     }
 
     @Override
     public long skip(final long lSkip) throws IOException {
-        for (var lSkipped = 0L; lSkipped < lSkip; lSkipped++) {
-            final var nReturn = this.read();
-            if (nReturn == -1) {
-                return lSkipped;
-            }
-        }
-        return lSkip;
+	for (var lSkipped = 0L; lSkipped < lSkip; lSkipped++) {
+	    final var nReturn = this.read();
+	    if (nReturn == -1) {
+		return lSkipped;
+	    }
+	}
+	return lSkip;
     }
 }

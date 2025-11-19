@@ -45,10 +45,10 @@ import org.retropipes.diane.vorbis.sampled.AudioFormats;
 // conversion
 public abstract class SimpleFormatConversionProvider extends TFormatConversionProvider {
     private static void collectEncodings(final Collection<AudioFormat> formats,
-            final Collection<AudioFormat.Encoding> encodings) {
-        for (final AudioFormat format : formats) {
-            encodings.add(format.getEncoding());
-        }
+	    final Collection<AudioFormat.Encoding> encodings) {
+	for (final AudioFormat format : formats) {
+	    encodings.add(format.getEncoding());
+	}
     }
 
     private final Collection<AudioFormat.Encoding> m_sourceEncodings;
@@ -62,29 +62,29 @@ public abstract class SimpleFormatConversionProvider extends TFormatConversionPr
      * @param targetFormats
      */
     protected SimpleFormatConversionProvider(Collection<AudioFormat> sourceFormats,
-            Collection<AudioFormat> targetFormats) {
-        this.m_sourceEncodings = new ArrayList<>();
-        this.m_targetEncodings = new ArrayList<>();
-        if (sourceFormats == null) {
-            sourceFormats = new ArrayList<>();
-        }
-        if (targetFormats == null) {
-            targetFormats = new ArrayList<>();
-        }
-        this.m_sourceFormats = sourceFormats;
-        this.m_targetFormats = targetFormats;
-        SimpleFormatConversionProvider.collectEncodings(this.m_sourceFormats, this.m_sourceEncodings);
-        SimpleFormatConversionProvider.collectEncodings(this.m_targetFormats, this.m_targetEncodings);
+	    Collection<AudioFormat> targetFormats) {
+	this.m_sourceEncodings = new ArrayList<>();
+	this.m_targetEncodings = new ArrayList<>();
+	if (sourceFormats == null) {
+	    sourceFormats = new ArrayList<>();
+	}
+	if (targetFormats == null) {
+	    targetFormats = new ArrayList<>();
+	}
+	this.m_sourceFormats = sourceFormats;
+	this.m_targetFormats = targetFormats;
+	SimpleFormatConversionProvider.collectEncodings(this.m_sourceFormats, this.m_sourceEncodings);
+	SimpleFormatConversionProvider.collectEncodings(this.m_targetFormats, this.m_targetEncodings);
     }
 
     @Override
     public AudioFormat.Encoding[] getSourceEncodings() {
-        return this.m_sourceEncodings.toArray(TFormatConversionProvider.EMPTY_ENCODING_ARRAY);
+	return this.m_sourceEncodings.toArray(TFormatConversionProvider.EMPTY_ENCODING_ARRAY);
     }
 
     @Override
     public AudioFormat.Encoding[] getTargetEncodings() {
-        return this.m_targetEncodings.toArray(TFormatConversionProvider.EMPTY_ENCODING_ARRAY);
+	return this.m_targetEncodings.toArray(TFormatConversionProvider.EMPTY_ENCODING_ARRAY);
     }
 
     /**
@@ -97,10 +97,10 @@ public abstract class SimpleFormatConversionProvider extends TFormatConversionPr
      */
     @Override
     public AudioFormat.Encoding[] getTargetEncodings(final AudioFormat sourceFormat) {
-        if (this.isAllowedSourceFormat(sourceFormat)) {
-            return this.getTargetEncodings();
-        }
-        return TFormatConversionProvider.EMPTY_ENCODING_ARRAY;
+	if (this.isAllowedSourceFormat(sourceFormat)) {
+	    return this.getTargetEncodings();
+	}
+	return TFormatConversionProvider.EMPTY_ENCODING_ARRAY;
     }
 
     /**
@@ -114,10 +114,10 @@ public abstract class SimpleFormatConversionProvider extends TFormatConversionPr
      */
     @Override
     public AudioFormat[] getTargetFormats(final AudioFormat.Encoding targetEncoding, final AudioFormat sourceFormat) {
-        if (this.isConversionSupported(targetEncoding, sourceFormat)) {
-            return this.m_targetFormats.toArray(TFormatConversionProvider.EMPTY_FORMAT_ARRAY);
-        }
-        return TFormatConversionProvider.EMPTY_FORMAT_ARRAY;
+	if (this.isConversionSupported(targetEncoding, sourceFormat)) {
+	    return this.m_targetFormats.toArray(TFormatConversionProvider.EMPTY_FORMAT_ARRAY);
+	}
+	return TFormatConversionProvider.EMPTY_FORMAT_ARRAY;
     }
 
     /**
@@ -126,23 +126,23 @@ public abstract class SimpleFormatConversionProvider extends TFormatConversionPr
      * @return
      */
     protected boolean isAllowedSourceFormat(final AudioFormat sourceFormat) {
-        for (final AudioFormat format : this.m_sourceFormats) {
-            if (AudioFormats.matches(format, sourceFormat)) {
-                return true;
-            }
-        }
-        return false;
+	for (final AudioFormat format : this.m_sourceFormats) {
+	    if (AudioFormats.matches(format, sourceFormat)) {
+		return true;
+	    }
+	}
+	return false;
     }
 
     // overwritten of FormatConversionProvider
     @Override
     public boolean isSourceEncodingSupported(final AudioFormat.Encoding sourceEncoding) {
-        return this.m_sourceEncodings.contains(sourceEncoding);
+	return this.m_sourceEncodings.contains(sourceEncoding);
     }
 
     // overwritten of FormatConversionProvider
     @Override
     public boolean isTargetEncodingSupported(final AudioFormat.Encoding targetEncoding) {
-        return this.m_targetEncodings.contains(targetEncoding);
+	return this.m_targetEncodings.contains(targetEncoding);
     }
 }

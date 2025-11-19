@@ -4,5 +4,16 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.direction;
 
 public enum DirectionQuery {
-    NONE, NORTH, SOUTH, WEST, EAST, DOWN, UP, INTO, PREVIOUS, NEXT, PAST, FUTURE
+    NONE,
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST,
+    DOWN,
+    UP,
+    INTO,
+    PREVIOUS,
+    NEXT,
+    PAST,
+    FUTURE
 }

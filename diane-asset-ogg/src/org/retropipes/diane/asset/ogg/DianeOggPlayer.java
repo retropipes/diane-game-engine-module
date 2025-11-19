@@ -16,44 +16,44 @@ public abstract class DianeOggPlayer extends Thread {
 
     // Factories
     public static DianeOggPlayer loadLoopedFile(final String file) {
-        DianeOggPlayer.stopPlaying();
-        DianeOggPlayer.ACTIVE_MEDIA = new OggLoopFile(file);
-        return DianeOggPlayer.ACTIVE_MEDIA;
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggLoopFile(file);
+	return DianeOggPlayer.ACTIVE_MEDIA;
     }
 
     public static DianeOggPlayer loadLoopedResource(final URL resource) {
-        DianeOggPlayer.stopPlaying();
-        DianeOggPlayer.ACTIVE_MEDIA = new OggLoopResource(resource);
-        return DianeOggPlayer.ACTIVE_MEDIA;
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggLoopResource(resource);
+	return DianeOggPlayer.ACTIVE_MEDIA;
     }
 
     public static DianeOggPlayer loadFile(final String file) {
-        DianeOggPlayer.stopPlaying();
-        DianeOggPlayer.ACTIVE_MEDIA = new OggFile(file);
-        return DianeOggPlayer.ACTIVE_MEDIA;
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggFile(file);
+	return DianeOggPlayer.ACTIVE_MEDIA;
     }
 
     public static DianeOggPlayer loadResource(final URL resource) {
-        DianeOggPlayer.stopPlaying();
-        DianeOggPlayer.ACTIVE_MEDIA = new OggResource(resource);
-        return DianeOggPlayer.ACTIVE_MEDIA;
+	DianeOggPlayer.stopPlaying();
+	DianeOggPlayer.ACTIVE_MEDIA = new OggResource(resource);
+	return DianeOggPlayer.ACTIVE_MEDIA;
     }
 
     public static void stopPlaying() {
-        if (DianeOggPlayer.ACTIVE_MEDIA != null) {
-            DianeOggPlayer.ACTIVE_MEDIA.stopPlayer();
-        }
+	if (DianeOggPlayer.ACTIVE_MEDIA != null) {
+	    DianeOggPlayer.ACTIVE_MEDIA.stopPlayer();
+	}
     }
 
     // Constructor
     protected DianeOggPlayer() {
-        super(PrivateStrings.ogg(PrivateOggString.MEDIA_PLAYER_NAME));
+	super(PrivateStrings.ogg(PrivateOggString.MEDIA_PLAYER_NAME));
     }
 
     public abstract boolean isPlaying();
 
     public void play() {
-        this.start();
+	this.start();
     }
 
     protected abstract void stopPlayer();

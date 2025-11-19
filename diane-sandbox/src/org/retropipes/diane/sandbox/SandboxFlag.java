@@ -4,5 +4,13 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.sandbox;
 
 public enum SandboxFlag {
-    OS_ENABLED, CAPS_LOCK, SHIFT, CONTROL, ALT_OPTION, SUPER_COMMAND, NUMERIC_PAD, INSERT_HELP, FUNCTION
+    OS_ENABLED,
+    CAPS_LOCK,
+    SHIFT,
+    CONTROL,
+    ALT_OPTION,
+    SUPER_COMMAND,
+    NUMERIC_PAD,
+    INSERT_HELP,
+    FUNCTION
 }
