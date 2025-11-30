@@ -71,11 +71,11 @@ public final class DataIOFactory {
 	};
     }
 
-    public static DataIOReader createTagReader(final String filename, final String tag) throws IOException {
+    public static XDataReader createTagReader(final String filename, final String tag) throws IOException {
 	return new XDataReader(new File(filename), tag);
     }
 
-    public static DataIOWriter createTagWriter(final String filename, final String tag) throws IOException {
+    public static XDataWriter createTagWriter(final String filename, final String tag) throws IOException {
 	return new XDataWriter(new File(filename), tag);
     }
 
