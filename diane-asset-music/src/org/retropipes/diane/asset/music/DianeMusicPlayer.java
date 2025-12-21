@@ -4,6 +4,7 @@ Any questions should be directed to the author via email at: support@puttysoftwa
 package org.retropipes.diane.asset.music;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
@@ -35,45 +36,49 @@ public class DianeMusicPlayer {
 
     public synchronized static void playSource(final URL source) throws IOException {
 	try (var inputStream = source.openStream()) {
-	    final var moduleData = inputStream.readAllBytes();
-	    DianeMusicPlayer.module = new Module(moduleData);
-	    DianeMusicPlayer.ibxm = new IBXM(DianeMusicPlayer.module, DianeMusicPlayer.SAMPLE_RATE);
-	    DianeMusicPlayer.ibxm.setInterpolation(DianeMusicPlayer.interpolation);
-	    DianeMusicPlayer.playing = true;
-	    DianeMusicPlayer.playThread = new Thread(() -> {
-		final var mixBuf = new int[DianeMusicPlayer.ibxm.getMixBufferLength()];
-		final var outBuf = new byte[mixBuf.length * 4];
-		final var audioFormat = new AudioFormat(DianeMusicPlayer.SAMPLE_RATE, 16, 2, true, true);
-		try (var audioLine = AudioSystem.getSourceDataLine(audioFormat)) {
-		    audioLine.open();
-		    audioLine.start();
-		    while (DianeMusicPlayer.playing) {
-			final var count = DianeMusicPlayer.getAudio(mixBuf);
-			var outIdx = 0;
-			for (int mixIdx = 0, mixEnd = count * 2; mixIdx < mixEnd; mixIdx++) {
-			    var ampl = mixBuf[mixIdx];
-			    if (ampl > 32767) {
-				ampl = 32767;
-			    }
-			    if (ampl < -32768) {
-				ampl = -32768;
-			    }
-			    outBuf[outIdx] = (byte) (ampl >> 8);
-			    outIdx++;
-			    outBuf[outIdx] = (byte) ampl;
-			    outIdx++;
-			}
-			audioLine.write(outBuf, 0, outIdx);
-		    }
-		    audioLine.drain();
-		} catch (final Exception e) {
-		    // Ignore
-		}
-	    });
-	    DianeMusicPlayer.playThread.start();
+	    DianeMusicPlayer.playStream(inputStream);
 	} catch (final IOException ioe) {
 	    throw ioe;
 	}
+    }
+
+    public synchronized static void playStream(final InputStream inputStream) throws IOException {
+	final var moduleData = inputStream.readAllBytes();
+	DianeMusicPlayer.module = new Module(moduleData);
+	DianeMusicPlayer.ibxm = new IBXM(DianeMusicPlayer.module, DianeMusicPlayer.SAMPLE_RATE);
+	DianeMusicPlayer.ibxm.setInterpolation(DianeMusicPlayer.interpolation);
+	DianeMusicPlayer.playing = true;
+	DianeMusicPlayer.playThread = new Thread(() -> {
+	    final var mixBuf = new int[DianeMusicPlayer.ibxm.getMixBufferLength()];
+	    final var outBuf = new byte[mixBuf.length * 4];
+	    final var audioFormat = new AudioFormat(DianeMusicPlayer.SAMPLE_RATE, 16, 2, true, true);
+	    try (var audioLine = AudioSystem.getSourceDataLine(audioFormat)) {
+		audioLine.open();
+		audioLine.start();
+		while (DianeMusicPlayer.playing) {
+		    final var count = DianeMusicPlayer.getAudio(mixBuf);
+		    var outIdx = 0;
+		    for (int mixIdx = 0, mixEnd = count * 2; mixIdx < mixEnd; mixIdx++) {
+			var ampl = mixBuf[mixIdx];
+			if (ampl > 32767) {
+			    ampl = 32767;
+			}
+			if (ampl < -32768) {
+			    ampl = -32768;
+			}
+			outBuf[outIdx] = (byte) (ampl >> 8);
+			outIdx++;
+			outBuf[outIdx] = (byte) ampl;
+			outIdx++;
+		    }
+		    audioLine.write(outBuf, 0, outIdx);
+		}
+		audioLine.drain();
+	    } catch (final Exception e) {
+		// Ignore
+	    }
+	});
+	DianeMusicPlayer.playThread.start();
     }
 
     public synchronized static void stopPlaying() {
