@@ -92,6 +92,27 @@ public final class XDataReader implements DataIOReader {
 	return this.file;
     }
 
+    public static boolean isGroup(final String s) {
+	int loc0 = s.indexOf('<') + 1;
+	int loc2 = s.indexOf('>', loc0);
+	return loc2 == -1;
+    }
+
+    public String peekNext() throws DataIOException {
+	try {
+	    this.fileIO.mark(50);
+	    String line = this.fileIO.readLine();
+	    if (line != null) {
+		this.fileIO.reset();
+		return line;
+	    } else {
+		throw new DataIOException("End of file!");
+	    }
+	} catch (final IOException e) {
+	    throw new DataIOException(e);
+	}
+    }
+
     @Override
     public boolean readBoolean() throws DataIOException {
 	var line = "";
