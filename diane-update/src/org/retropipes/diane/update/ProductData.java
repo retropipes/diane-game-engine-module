@@ -14,8 +14,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class ProductData {
+    public static final int CODE_PRE_ALPHA = 0;
     public static final int CODE_ALPHA = 1;
     public static final int CODE_BETA = 2;
+    public static final int CODE_RELEASE_CANDIDATE = 3;
     public static final int CODE_STABLE = 4;
     // Fields
     private final URL updateURL;
@@ -30,7 +32,15 @@ public class ProductData {
     // Constructors
     public ProductData(final int major, final int minor, final int bugfix, final int code, final int beta) {
 	String rt_vl, rt_vs;
-	if (code == ProductData.CODE_ALPHA) {
+	if (code == ProductData.CODE_PRE_ALPHA) {
+	    if (beta > 0) {
+		rt_vl = "-pre" + beta;
+		rt_vs = "p" + beta;
+	    } else {
+		rt_vl = "-pre";
+		rt_vs = "p";
+	    }
+	} else if (code == ProductData.CODE_ALPHA) {
 	    if (beta > 0) {
 		rt_vl = "-alpha" + beta;
 		rt_vs = "a" + beta;
@@ -45,6 +55,14 @@ public class ProductData {
 	    } else {
 		rt_vl = "-beta";
 		rt_vs = "b";
+	    }
+	} else if (code == ProductData.CODE_RELEASE_CANDIDATE) {
+	    if (beta > 0) {
+		rt_vl = "-rc" + beta;
+		rt_vs = "c" + beta;
+	    } else {
+		rt_vl = "-rc";
+		rt_vs = "c";
 	    }
 	} else {
 	    rt_vl = "";
@@ -65,7 +83,16 @@ public class ProductData {
 	    final int code, final int beta) throws MalformedURLException, URISyntaxException {
 	String rt_url;
 	String rt_vl, rt_vs;
-	if (code == ProductData.CODE_ALPHA) {
+	if (code == ProductData.CODE_PRE_ALPHA) {
+	    if (beta > 0) {
+		rt_vl = "-pre" + beta;
+		rt_vs = "p" + beta;
+	    } else {
+		rt_vl = "-pre";
+		rt_vs = "p";
+	    }
+	    rt_url = "pre_"; //$NON-NLS-1$
+	} else if (code == ProductData.CODE_ALPHA) {
 	    if (beta > 0) {
 		rt_vl = "-alpha" + beta;
 		rt_vs = "a" + beta;
@@ -83,6 +110,15 @@ public class ProductData {
 		rt_vs = "b";
 	    }
 	    rt_url = "beta_"; //$NON-NLS-1$
+	} else if (code == ProductData.CODE_RELEASE_CANDIDATE) {
+	    if (beta > 0) {
+		rt_vl = "-rc" + beta;
+		rt_vs = "c" + beta;
+	    } else {
+		rt_vl = "-rc";
+		rt_vs = "c";
+	    }
+	    rt_url = "rc_"; //$NON-NLS-1$
 	} else {
 	    rt_url = "stable_"; //$NON-NLS-1$
 	    rt_vl = "";
