@@ -127,6 +127,31 @@ public final class XDataWriter implements DataIOWriter {
 	}
     }
 
+    public void writeCustomDouble(final double d, final String tag) throws IOException {
+	this.fileIO.write("<" + tag + ">" + Double.toString(d) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
+    public void writeCustomInt(final int i, final String tag) throws IOException {
+	this.fileIO.write("<" + tag + ">" + Integer.toString(i) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
+    public void writeCustomLong(final long l, final String tag) throws IOException {
+	this.fileIO.write("<" + tag + ">" + Long.toString(l) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
+    public void writeCustomByte(final byte b, final String tag) throws IOException {
+	this.fileIO.write("<" + tag + ">" + Byte.toString(b) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
+    public void writeCustomBoolean(final boolean b, final String tag) throws IOException {
+	this.fileIO.write("<" + tag + ">" + Boolean.toString(b) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
+    public void writeCustomString(final String s, final String tag) throws IOException {
+	this.fileIO.write(
+		"<" + tag + ">" + XDataWriter.replaceSpecialCharacters(s) + "</" + tag + ">" + XDataWriter.END_OF_LINE);
+    }
+
     private void writeOpeningDocTag() throws DataIOException {
 	try {
 	    this.fileIO.write("<" + this.docTag + ">" + XDataWriter.END_OF_LINE); //$NON-NLS-1$ //$NON-NLS-2$

@@ -311,6 +311,78 @@ public final class XDataReader implements DataIOReader {
 	}
     }
 
+    public double readCustomDouble(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return Double.parseDouble(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
+    public int readCustomInt(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return Integer.parseInt(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
+    public long readCustomLong(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return Long.parseLong(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
+    public byte readCustomByte(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return Byte.parseByte(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
+    public boolean readCustomBoolean(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return Boolean.parseBoolean(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
+    public String readCustomString(final String tag) throws IOException {
+	final String line = this.fileIO.readLine();
+	if (line != null) {
+	    final String[] split = XDataReader.splitLine(line);
+	    XDataReader.validateOpeningTag(split[0], tag);
+	    XDataReader.validateClosingTag(split[2], tag);
+	    return XDataReader.replaceSpecialCharacters(split[1]);
+	} else {
+	    throw new IOException("End of file!");
+	}
+    }
+
     private void readXHeader() throws DataIOException {
 	var line = "";
 	try {
